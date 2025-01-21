@@ -1,18 +1,24 @@
 .item{
     width: 15rem;
-    height: 5rem;
+    height: 4rem;
     padding: 1rem;
     margin-left: auto;
     margin-right: auto;
     display: flex;
     align-items: center;
-    background-color: blueviolet;
-    margin-bottom: 1rem;
+    background-color: rgb(156, 156, 156);
+    border-radius: 28px;
+    filter: var(--drop_shadow);
 
     .itemName{
         margin: 0;
-        display: block;
+        display:flex;
         width: 10rem;
+        height: 2rem;
+        overflow: hidden;
+        text-wrap-mode:nowrap;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     .itemPrice{
@@ -27,7 +33,7 @@
         height:3rem;
         margin-left: auto;
         margin-right: auto;
-        background-color: rgb(43, 98, 226);
+        background-color: rgb(223, 223, 223);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -35,14 +41,17 @@
     }
 }
 #itemList{
-    width:  20rem;
-    height: 20rem;
-    overflow-y: scroll;
+    width:  75%;
+    height: 40%;
+    overflow-y: auto;
+    overflow-x: hidden;
     list-style: none;
-    background-color: rgb(101, 59, 179);
+    background-color: rgb(193, 193, 193);
     margin: 0;
     padding: 0;
     padding-top: 1rem;
-    
-
+    border-radius: 28px;
+    filter: var(--drop_shadow);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
 }

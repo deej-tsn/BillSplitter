@@ -9,6 +9,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(59, 59, 179);
+  background-image: url("./assets/wall.webp");
 }
 
