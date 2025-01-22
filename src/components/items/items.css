@@ -53,5 +53,6 @@
     border-radius: 28px;
     filter: var(--drop_shadow);
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 1rem;
 }
