@@ -35,10 +35,18 @@ export function addToItemsLeft(itemsLeft : ItemsLeft, item:Item): void {
 }
 
 
-export function DeleteToItemsLeft(itemsLeft : ItemsLeft, item:Item) : Item {
+export function DeleteToItemsLeft(itemsLeft : ItemsLeft, item:Item) {
     if (itemsLeft.items.has(item.name)){
-        
+        const currentItem = itemsLeft.items.get(item.name)!
+        if(item.quantity == currentItem.quantity){
+            itemsLeft.items.delete(item.name)
+        }else if(item.quantity > currentItem.quantity){
+            throw new Error("Quantity greater than amount left.");
+        } else{
+            currentItem.quantity -= item.quantity;
+        }
     }else{
         throw new Error("No Instances of item in Items Left");
     }
 }
+

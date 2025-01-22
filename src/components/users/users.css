@@ -1,4 +1,4 @@
-.item{
+.user{
     width: 15rem;
     height: 4rem;
     padding: 1rem;
@@ -10,7 +10,7 @@
     border-radius: 28px;
     filter: var(--drop_shadow);
 
-    .itemName{
+    .userName{
         margin: 0;
         display:flex;
         width: 10rem;
@@ -21,13 +21,13 @@
         text-overflow: ellipsis;
     }
 
-    .itemPrice{
+    .userPrice{
         margin: 0;
         display: block;
 
     }
 
-    .itemQuantity {
+    .userQuantity {
         margin: 0;
         width: 3rem;
         height:3rem;
@@ -41,7 +41,7 @@
     }
 }
 
-#itemHolder{
+#userContainer{
     width:  75%;
     height: fit-content;
 
@@ -54,7 +54,7 @@
     
 }
 
-#itemList{
+#userList{
     height: 15rem;
     display: grid;
     grid-template-columns: repeat(4, 1fr);

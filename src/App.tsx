@@ -4,6 +4,8 @@ import { Item, ItemsLeft, newItemsLeft } from './models/items'
 import ItemList from './components/items/itemList'
 import { useState } from 'react'
 import { User } from './models/users'
+import ItemHolder from './components/items/itemHolder'
+import UserContainer from './components/users/userContainer'
 
 
 function App() {
@@ -15,7 +17,7 @@ function App() {
   })
   items = items as Item[]
 
-  const [ItemsLeft, setItemsLeft] = useState<ItemsLeft>(newItemsLeft(items))
+  const [itemsLeft, setItemsLeft] = useState<ItemsLeft>(newItemsLeft(items))
 
   const [Users, setUsers] = useState<User[]>([]);
 
@@ -23,8 +25,8 @@ function App() {
 
   return (
     <>
-      {ItemList(items)}
-      
+      {ItemHolder(itemsLeft)}
+      {UserContainer(Users, setUsers)}
     </>
   )
 }
