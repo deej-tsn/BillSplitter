@@ -11,6 +11,9 @@ export type ItemsLeft = {
     cost : number
 }
 
+export interface ItemClicked extends EventTarget {
+    
+}
 
 export function newItemsLeft(items : Item[]) : ItemsLeft{
     let cost = 0;
@@ -35,15 +38,17 @@ export function addToItemsLeft(itemsLeft : ItemsLeft, item:Item): void {
 }
 
 
-export function DeleteToItemsLeft(itemsLeft : ItemsLeft, item:Item) {
+export function DeleteToItemsLeft(itemsLeft : ItemsLeft, item:Item) : Item {
     if (itemsLeft.items.has(item.name)){
         const currentItem = itemsLeft.items.get(item.name)!
         if(item.quantity == currentItem.quantity){
             itemsLeft.items.delete(item.name)
+            return item;
         }else if(item.quantity > currentItem.quantity){
             throw new Error("Quantity greater than amount left.");
         } else{
             currentItem.quantity -= item.quantity;
+            return currentItem;
         }
     }else{
         throw new Error("No Instances of item in Items Left");

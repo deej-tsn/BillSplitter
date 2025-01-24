@@ -1,15 +1,17 @@
-import { User } from "../../models/users";
+import { User, UsersController } from "../../models/users";
 import "./users.css"
-export default function UserComp(user:User) {
+export default function UserComp(user:User, userController : UsersController, setUsers : (userController : UsersController) => void) {
+    function handleClick(event : React.MouseEvent<HTMLDivElement>){
+        event.preventDefault()
+        setUsers({...userController, currentUser : user})
+    }
     return (
-        <div className="user">
+        <div key={user.name} onClick={handleClick} className="user">
             <div>
-                <h1>{user.name}</h1>
-                <h4>has {user.items.size} items</h4>
+                <h1 className="userName">{user.name}</h1>
+                <h4 className="userQuantity">has {user.items.size} items</h4>
             </div>
-            <div>
-                <h1>{user.cost}</h1>
-            </div>
+                <h4 className="userCost">£{user.cost}</h4>
         </div>
 
     )

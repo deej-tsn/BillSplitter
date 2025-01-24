@@ -1,15 +1,15 @@
-import { User } from "../../models/users";
+import {UsersController } from "../../models/users";
 import AddUser from "./addUser";
 import UserComp from "./user";
 import "./users.css"
 
-export default function UserContainer(users : User[], setUsers : (users : User[]) => void) {
+export default function UserContainer(userController : UsersController, setUsers : (users : UsersController) => void) {
     return (
         <div id="userContainer">
             <div id="userList">
-                {users.map((user) => UserComp(user))}
+                {userController.users.map((user) => UserComp(user, userController, setUsers))}
             </div>
-            {AddUser(users,setUsers)}
+            {AddUser(userController, setUsers)}
         </div>
     )
 }

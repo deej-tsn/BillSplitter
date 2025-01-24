@@ -8,6 +8,16 @@ export type User = {
 }
 
 
+export type UsersController = {
+    users : User[],
+    currentUser : User | null
+}
+
+export interface UserFormData extends EventTarget {
+    name : HTMLInputElement
+}
+
+
 
 
 export function CreateUser(name : string) : User {
