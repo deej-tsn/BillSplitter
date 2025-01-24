@@ -1,18 +1,10 @@
-import { DeleteToItemsLeft, Item } from "../../models/items";
-import { AddItemToUser, UsersController } from "../../models/users";
-import ItemList from "./itemList";
+import { Item } from "../../models/items";
 import "./items.css";
 
-export default function ItemComp(item:Item, userController : UsersController) {
+export default function ItemComp(item : Item) {
 
     function handleClick(event:React.MouseEvent<HTMLDivElement>) {
         event.preventDefault();
-        console.log(event.currentTarget);
-        console.log(userController.currentUser);
-        if(userController.currentUser){
-            AddItemToUser(userController.currentUser, item);
-        }
-        
     }
 
     return (

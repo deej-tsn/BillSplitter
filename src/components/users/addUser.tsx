@@ -1,16 +1,14 @@
-import { CreateUser, UserFormData, UsersController } from "../../models/users";
+import { createUser } from "../../models/users";
 
-export default function AddUser(userController : UsersController, setUser : (user : UsersController) => void) {
+
+export default function AddUser() {
+
+    const dispatch = useDispatch();
+    
 
     function SubmitForm(event:React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        let details = event.target as UserFormData;
-        const newUser = CreateUser(details.name.value)
-        const newUserController : UsersController= {
-            users : [...userController.users, newUser],
-            currentUser : newUser
-        }
-        setUser(newUserController)
+        dispatch(createUser(event.))
     }
 
 

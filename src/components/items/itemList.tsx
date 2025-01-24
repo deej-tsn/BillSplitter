@@ -1,18 +1,18 @@
 
-import { Item } from "../../models/items";
-import { UsersController } from "../../models/users";
-import ItemComp from "./item";
+import { useSelector } from "react-redux";
 import "./items.css";
+import { RootState } from "../../store/store";
+import ItemComp from "./item";
+import { Item } from "../../models/items";
 
-export default function ItemList(items:Map<string, Item>, userController : UsersController) {
-    let list : JSX.Element[] = []
-    items.forEach((item:Item) => list.push(ItemComp(
-        item,
-        userController
-    )))
+export default function ItemList() {
+
+    const items = useSelector((state : RootState) => state.itemsLeft.items)
+    const listOfItems = Object.values(items).map((item : Item) => ItemComp(item))
+
     return (
         <div id="itemList">
-            {list}
+            {listOfItems}
         </div>
     )
 }

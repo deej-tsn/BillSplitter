@@ -1,15 +1,17 @@
-import {UsersController } from "../../models/users";
-import AddUser from "./addUser";
-import UserComp from "./user";
+import { useSelector } from "react-redux"
 import "./users.css"
+import { RootState } from "../../store/store";
+import UserComp from "./user";
 
-export default function UserContainer(userController : UsersController, setUsers : (users : UsersController) => void) {
+export default function UserContainer() {
+    const users = useSelector((state : RootState) => state.users.users)
+
     return (
         <div id="userContainer">
             <div id="userList">
-                {userController.users.map((user) => UserComp(user, userController, setUsers))}
+                {users.map((user) => UserComp(user))}
             </div>
-            {AddUser(userController, setUsers)}
+            {}
         </div>
     )
 }

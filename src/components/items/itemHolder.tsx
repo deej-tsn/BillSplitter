@@ -1,14 +1,17 @@
-import { ItemsLeft } from "../../models/items";
-import { UsersController } from "../../models/users";
+
+import { useSelector } from "react-redux";
 import ItemList from "./itemList";
+import { RootState } from "../../store/store";
 
-export default function ItemHolder(itemsLeft :ItemsLeft, userController : UsersController) {
+export default function ItemHolder() {
+
+    const cost = useSelector((state : RootState) => state.itemsLeft.cost)
+
     return (
-
         <div id="itemHolder">
             <h1>Items Left:</h1>
-            {ItemList(itemsLeft.items, userController)}
-            <h4>Cost Left To Allocate : {itemsLeft.cost}</h4>
+                {ItemList()}
+            <h4>Cost Left To Allocate : {cost}</h4>
         </div>
     )
 }
