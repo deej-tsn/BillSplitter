@@ -1,18 +1,19 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import "./users.css"
 import { RootState } from "../../store/store";
 import UserComp from "./user";
 import AddUser from "./addUser";
 
 export default function UserContainer() {
-    const users = useSelector((state : RootState) => state.users.users)
+    const dispatch = useDispatch();
+    const users = useSelector((state : RootState) => state.session.users)
 
     return (
         <div id="userContainer">
             <div id="userList">
-                {users.map((user) => UserComp(user))}
+                {users.map((user) => UserComp(user , dispatch))}
             </div>
-            {AddUser()}
+            {AddUser(dispatch)}
         </div>
     )
 }

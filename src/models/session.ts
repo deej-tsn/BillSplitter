@@ -1,6 +1,6 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { addToRecipe, deleteFromRecipe, Item, newUser, Receipt, User } from './receipt';
+import { addToRecipe, dataToRecipe, deleteFromRecipe, Item, newUser, Receipt, User } from './receipt';
 import data from '../../data/test_data.json';
 
 
@@ -13,7 +13,7 @@ type Session = {
 
 const initialState: Session = {
   users:[],
-  leftOver : data,
+  leftOver : dataToRecipe(data),
   currentUser: null,
 };
 
@@ -35,15 +35,15 @@ const sessionSlice = createSlice({
     addItemToUser: (state, action: PayloadAction<Item>) => {
       const item = action.payload;
       if (state.currentUser == null) return;
-      addToRecipe(state.currentUser.recipe, item);
-      deleteFromRecipe(state.leftOver, item);
+      state.users.find((user) => user.name == state.currentUser!.name)!.recipe = addToRecipe(state.currentUser.recipe, item);
+      state.leftOver = deleteFromRecipe(state.leftOver, item);
     
     },
-    removeItemFromUser: (state , action: PayloadAction<Item>) => {
-      const item = action.payload;
-      if (state.currentUser == null) return; 
-      addToRecipe(state.leftOver, item);
-      deleteFromRecipe(state.currentUser.recipe, item);
+    removeItemFromUser: (state , action: PayloadAction<{user:User, item:Item}>) => {
+      const {user, item} = action.payload;
+      state.leftOver = addToRecipe(state.leftOver, item);
+      const stateUser = state.users.find((temp_user) => temp_user.name == user.name)!;
+      stateUser.recipe = deleteFromRecipe(stateUser.recipe, item);
     }
   },
 });

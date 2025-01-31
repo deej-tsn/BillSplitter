@@ -1,17 +1,15 @@
 
-import { useDispatch } from "react-redux"
 import { setCurrentUser} from "../../models/session"
 import UserItem from "./userItem"
 import "./users.css"
 import { User } from "../../models/receipt"
-export default function UserComp(user : User) {
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit"
+export default function UserComp(user : User, dispatch : Dispatch<UnknownAction>) {
 
-    const dispatch = useDispatch()
+    
     function handleClick(event : React.MouseEvent<HTMLDivElement>){
         event.preventDefault()
-
-        console.log(user)
-        dispatch(setCurrentUser(user.name))
+        dispatch(setCurrentUser(user))
     }
     return (
         <div key={user.name} onClick={handleClick} className="user">
@@ -23,7 +21,7 @@ export default function UserComp(user : User) {
                     <h4 className="userCost">£{user.recipe.cost}</h4>
             </div>
             <ul className="userItemList">
-                {user.recipe.items.map((item) => UserItem(item))}
+                {user.recipe.items.map((item) => UserItem(user, item , dispatch))}
             </ul>
         </div>
 

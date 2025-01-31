@@ -1,10 +1,11 @@
-import { useDispatch } from "react-redux";
+
+import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
 import { createUser } from "../../models/session";
 
 
-export default function AddUser() {
+export default function AddUser(dispatch : Dispatch<UnknownAction>) {
 
-    const dispatch = useDispatch();
+    
     
 
     function SubmitForm(event:React.FormEvent<HTMLFormElement>) {
