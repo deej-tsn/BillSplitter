@@ -1,11 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import usersReducer from '../models/users';
-import itemsLeftReducer from '../models/items';
+import sessionReducer from '../models/session';
 
 const store = configureStore({
   reducer: {
-    users: usersReducer,
-    itemsLeft: itemsLeftReducer,
+    session: sessionReducer,
   },
 });
 

@@ -1,4 +1,5 @@
-import { createUser } from "../../models/users";
+import { useDispatch } from "react-redux";
+import { createUser } from "../../models/session";
 
 
 export default function AddUser() {
@@ -8,7 +9,10 @@ export default function AddUser() {
 
     function SubmitForm(event:React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        dispatch(createUser(event.))
+        let details = event.target as unknown as {
+            name: HTMLInputElement,
+        };
+        dispatch(createUser(details.name.value))
     }
 
 

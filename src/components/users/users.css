@@ -5,10 +5,36 @@
     margin-left: auto;
     margin-right: auto;
     display: flex;
+    flex-direction: column;
     align-items: center;
     background-color: rgb(156, 156, 156);
     border-radius: 28px;
     filter: var(--drop_shadow);
+
+    .userHero{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .userItemList{
+        list-style: none;
+        width: 100%;
+        padding: 0;
+
+        li{
+            margin-top: 1rem;
+            display: flex;
+
+            .userItemRight{
+                margin-left: auto;
+            }
+
+            h4{
+                margin: 0;
+            }
+
+        }
+    }
 
     .userName{
         margin: 0;
