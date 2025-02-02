@@ -10,7 +10,7 @@ export default function ItemComp(key:number , item : Item, currentUser : User | 
     function handleClick(event:React.MouseEvent<HTMLDivElement>) {
         event.preventDefault();
         console.log(currentUser);
-        if(currentUser){
+        if(currentUser != null){
             let newItem : Item = {
                 name : item.name,
                 quantity : 1,

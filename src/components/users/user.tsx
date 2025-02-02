@@ -4,12 +4,12 @@ import UserItem from "./userItem"
 import "./users.css"
 import { User } from "../../models/receipt"
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit"
-export default function UserComp(user : User, dispatch : Dispatch<UnknownAction>) {
+export default function UserComp(user : User,index:number, dispatch : Dispatch<UnknownAction>) {
 
     
     function handleClick(event : React.MouseEvent<HTMLDivElement>){
         event.preventDefault()
-        dispatch(setCurrentUser(user))
+        dispatch(setCurrentUser(index))
     }
     return (
         <div key={user.name} onClick={handleClick} className="user">

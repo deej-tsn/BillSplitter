@@ -81,11 +81,9 @@ export function addToRecipe(receipt : Receipt, itemToAdd : Item) : Receipt{
 export function adjustCost(receipt  : Receipt) : string {
     let cost = 0;
     receipt.items.forEach((item) => cost += item.price * item.quantity)
-    console.log(cost)
-    receipt.charges.forEach((charge) => {
-        cost *= (1+charge.charge_value);
-        console.log(cost)
-});
+    let service_charge = cost * receipt.charges[1].charge_value;
+    cost = cost * (1+receipt.charges[0].charge_value);
+    cost += service_charge;
     return cost.toFixed(2);
 }
 

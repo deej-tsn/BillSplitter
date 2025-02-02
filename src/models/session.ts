@@ -8,7 +8,7 @@ import data from '../../data/test_data.json';
 type Session = {
   users: User[];
   leftOver : Receipt,
-  currentUser: User | null;
+  currentUser: number | null;
 };
 
 const initialState: Session = {
@@ -26,16 +26,16 @@ const sessionSlice = createSlice({
       if (!state.users.find(user => user.name === userName)) {
         const user = newUser(userName, state.leftOver.charges);
         state.users.push(user);
-        state.currentUser = user;
+        state.currentUser = state.users.length-1;
       }
     },
-    setCurrentUser: (state, action: PayloadAction<User>) => {
+    setCurrentUser: (state, action: PayloadAction<number>) => {
       state.currentUser = action.payload;
     },
     addItemToUser: (state, action: PayloadAction<Item>) => {
       const item = action.payload;
       if (state.currentUser == null) return;
-      state.users.find((user) => user.name == state.currentUser!.name)!.recipe = addToRecipe(state.currentUser.recipe, item);
+      state.users[state.currentUser].recipe = addToRecipe(state.users[state.currentUser].recipe, item);
       state.leftOver = deleteFromRecipe(state.leftOver, item);
     
     },

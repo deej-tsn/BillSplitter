@@ -11,7 +11,7 @@ export default function UserContainer() {
     return (
         <div id="userContainer">
             <div id="userList">
-                {users.map((user) => UserComp(user , dispatch))}
+                {users.map((user,index) => UserComp(user, index, dispatch))}
             </div>
             {AddUser(dispatch)}
         </div>
