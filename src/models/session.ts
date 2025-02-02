@@ -1,7 +1,8 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { addToRecipe, dataToRecipe, deleteFromRecipe, Item, newUser, Receipt, User } from './receipt';
+import { addToRecipe, dataToRecipe, deleteFromRecipe, newUser, Receipt, sortRecipe, User } from './receipt';
 import data from '../../data/test_data.json';
+import { Item } from './item';
 
 
 
@@ -37,13 +38,15 @@ const sessionSlice = createSlice({
       if (state.currentUser == null) return;
       state.users[state.currentUser].recipe = addToRecipe(state.users[state.currentUser].recipe, item);
       state.leftOver = deleteFromRecipe(state.leftOver, item);
-    
+      state.users[state.currentUser].recipe.items = sortRecipe(state.users[state.currentUser].recipe)
     },
     removeItemFromUser: (state , action: PayloadAction<{user:User, item:Item}>) => {
       const {user, item} = action.payload;
       state.leftOver = addToRecipe(state.leftOver, item);
       const stateUser = state.users.find((temp_user) => temp_user.name == user.name)!;
       stateUser.recipe = deleteFromRecipe(stateUser.recipe, item);
+      state.leftOver.items = sortRecipe(state.leftOver)
+
     }
   },
 });

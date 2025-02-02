@@ -21,6 +21,7 @@ export type Receipt = {
 export function dataToRecipe(data : any) : Receipt{
     let initialState = data as Receipt
     initialState.cost = adjustCost(data)
+    initialState.items = sortRecipe(initialState);
     return initialState;
 }
 
@@ -39,11 +40,16 @@ export function newUser(name:string, charges : Charge[]) : User {
     }
 }
 
+export function sortRecipe(receipt : Receipt) : Item[] {
+    let sortedItems = receipt.items.sort((a , b) => a.name.localeCompare(b.name))
+    return sortedItems
+}
+
 export function deleteFromRecipe(receipt : Receipt, itemToRemove : Item) : Receipt{
     const itemInRecipe = receipt.items.find((item) => item.name == itemToRemove.name);
     if (itemInRecipe == undefined) throw new Error('Item not in Recipe to Delete')
-    let costRemoved : number;
     if(itemInRecipe.quantity < itemToRemove.quantity) throw new Error('Quantity greater than amount left.');
+    let costRemoved;
     if(itemInRecipe.quantity == itemToRemove.quantity){
         receipt.items = receipt.items.filter((item) => item.name != itemToRemove.name);
         costRemoved = itemInRecipe.quantity * itemInRecipe.price;
