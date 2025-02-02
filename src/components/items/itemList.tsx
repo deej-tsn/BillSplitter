@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./items.css";
 import { RootState } from "../../store/store";
 import ItemComp from "./item";
-import { Item } from "../../models/receipt";
+import { Item } from "../../models/item";
 
 export default function ItemList() {
 

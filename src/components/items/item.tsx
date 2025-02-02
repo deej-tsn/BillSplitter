@@ -2,10 +2,10 @@
 import "./items.css";
 import { Dispatch } from "react";
 import { UnknownAction } from "@reduxjs/toolkit";
-import { Item, User } from "../../models/receipt";
 import { addItemToUser } from "../../models/session";
+import { Item } from "../../models/item";
 
-export default function ItemComp(key:number , item : Item, currentUser : User | null, dispatch :Dispatch<UnknownAction>) {
+export default function ItemComp(key:number , item : Item, currentUser : number | null, dispatch :Dispatch<UnknownAction>) {
 
     function handleClick(event:React.MouseEvent<HTMLDivElement>) {
         event.preventDefault();

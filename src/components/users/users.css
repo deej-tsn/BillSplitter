@@ -7,8 +7,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(156, 156, 156);
+    background-color: #9c9c9c;
     border-radius: 28px;
+    cursor: pointer;
     filter: var(--drop_shadow);
 
     .userHero{
@@ -68,6 +69,10 @@
         align-items: center;
         border-radius: 100px;
     }
+}
+
+#currentUser{
+    background-color: #767676;
 }
 
 #userContainer{

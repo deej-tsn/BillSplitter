@@ -4,7 +4,7 @@ import UserItem from "./userItem"
 import "./users.css"
 import { User } from "../../models/receipt"
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit"
-export default function UserComp(user : User,index:number, dispatch : Dispatch<UnknownAction>) {
+export default function UserComp(user : User, index:number, isCurrentUser:boolean,  dispatch : Dispatch<UnknownAction>) {
 
     
     function handleClick(event : React.MouseEvent<HTMLDivElement>){
@@ -12,7 +12,7 @@ export default function UserComp(user : User,index:number, dispatch : Dispatch<U
         dispatch(setCurrentUser(index))
     }
     return (
-        <div key={user.name} onClick={handleClick} className="user">
+        <div key={user.name} onClick={handleClick} className="user" id={isCurrentUser? "currentUser" : undefined}>
             <div className="userHero">
                 <div>
                     <h1 className="userName">{user.name}</h1>
@@ -21,7 +21,7 @@ export default function UserComp(user : User,index:number, dispatch : Dispatch<U
                     <h4 className="userCost">£{user.recipe.cost}</h4>
             </div>
             <ul className="userItemList">
-                {user.recipe.items.map((item) => UserItem(user, item , dispatch))}
+                {user.recipe.items.map((item, userIndex) => UserItem(user, item, userIndex,  dispatch))}
             </ul>
         </div>
 

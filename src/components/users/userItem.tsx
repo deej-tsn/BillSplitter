@@ -1,8 +1,9 @@
 import { Dispatch, UnknownAction } from "@reduxjs/toolkit";
-import { Item, User } from "../../models/receipt";
+import { User } from "../../models/receipt";
 import { removeItemFromUser, setCurrentUser } from "../../models/session";
+import { Item } from "../../models/item";
 
-export default function UserItem(user : User, item : Item, dispatch : Dispatch<UnknownAction>){
+export default function UserItem(user : User, item : Item, userIndex: number, dispatch : Dispatch<UnknownAction>){
 
     function buttonHandler(event : React.MouseEvent<HTMLButtonElement>){
         event.preventDefault()
@@ -17,7 +18,7 @@ export default function UserItem(user : User, item : Item, dispatch : Dispatch<U
             item: newItem
         }))
 
-        dispatch(setCurrentUser(user))
+        dispatch(setCurrentUser(userIndex))
     }
 
     return(

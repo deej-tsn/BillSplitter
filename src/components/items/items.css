@@ -9,6 +9,7 @@
     background-color: rgb(156, 156, 156);
     border-radius: 28px;
     filter: var(--drop_shadow);
+    cursor: pointer;
 
     .itemName{
         margin: 0;

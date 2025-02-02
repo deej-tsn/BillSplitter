@@ -1,14 +1,10 @@
+import { Item } from "./item";
 
 export type User = {
     name: string;
     recipe : Receipt
   };
 
-export type Item = {
-    name: string;
-    price: number;
-    quantity: number;
-  };
 
 type Charge = {
     name : string,
