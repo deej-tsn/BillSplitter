@@ -9,14 +9,14 @@ import { Item } from './item';
 type Session = {
   users: User[];
   leftOver : Receipt,
-  currentUser: number | null,
+  currentSelectedUsers: boolean[],
   currentSelectedItems : boolean[],
 };
 
 const initialState: Session = {
   users:[],
   leftOver : dataToRecipe(data),
-  currentUser: null,
+  currentSelectedUsers: [],
   currentSelectedItems : new Array(data.items.length).fill(false),
 };
 
@@ -29,21 +29,23 @@ const sessionSlice = createSlice({
       if (!state.users.find(user => user.name === userName)) {
         const user = newUser(userName, state.leftOver.charges);
         state.users.push(user);
-        state.currentUser = state.users.length-1;
+        state.currentSelectedUsers.push(true);
       }
     },
     setCurrentUser: (state, action: PayloadAction<number>) => {
-      state.currentUser = action.payload;
+      const itemIndex = action.payload
+      state.currentSelectedUsers[itemIndex] = !state.currentSelectedUsers[itemIndex];
     },
     setCurrentItem: (state, action: PayloadAction<number>) => {
       const itemIndex = action.payload
       state.currentSelectedItems[itemIndex] = !state.currentSelectedItems[itemIndex];
     },
-    addItemToUser: (state) => {
-      if (state.currentUser == null || state.currentSelectedItems.includes(true) == false) return;
-      state.users[state.currentUser].recipe = addManyToRecipe(state.users[state.currentUser].recipe, state.leftOver, state.currentSelectedItems)
+    addItemToOneUser: (state) => {
+      if (state.currentSelectedItems.includes(true) == false) return;
+      let userIndex = state.currentSelectedUsers.findIndex((isSelected) => isSelected)
+      state.users[userIndex].recipe = addManyToRecipe(state.users[userIndex].recipe, state.leftOver, state.currentSelectedItems)
       state.leftOver = deleteManyFromRecipe(state.leftOver, state.currentSelectedItems);
-      state.users[state.currentUser].recipe.items = sortRecipe(state.users[state.currentUser].recipe);
+      state.users[userIndex].recipe.items = sortRecipe(state.users[userIndex].recipe);
       state.currentSelectedItems = new Array(state.leftOver.items.length).fill(false);
     },
     removeItemFromUser: (state , action: PayloadAction<{user:User, item:Item}>) => {
@@ -53,10 +55,10 @@ const sessionSlice = createSlice({
       stateUser.recipe = deleteFromRecipe(stateUser.recipe, item);
       state.leftOver.items = sortRecipe(state.leftOver);
       state.currentSelectedItems = new Array(state.leftOver.items.length).fill(false);
-      console.log(state);
+      
     }
   },
 });
 
-export const { createUser, setCurrentUser,setCurrentItem, addItemToUser, removeItemFromUser } = sessionSlice.actions;
+export const { createUser, setCurrentUser,setCurrentItem, addItemToOneUser, removeItemFromUser } = sessionSlice.actions;
 export default sessionSlice.reducer;

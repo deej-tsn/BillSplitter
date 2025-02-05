@@ -7,12 +7,12 @@ import AddUser from "./addUser";
 export default function UserContainer() {
     const dispatch = useDispatch();
     const users = useSelector((state : RootState) => state.session.users)
-    const currentUserIndex = useSelector((state: RootState) => state.session.currentUser)
+    const currentSelectedUsers = useSelector((state: RootState) => state.session.currentSelectedUsers)
 
     return (
         <div id="userContainer">
             <div id="userList">
-                {users.map((user,index) => UserComp(user, index,(index==currentUserIndex),  dispatch))}
+                {users.map((user,index) => UserComp(user, index,(currentSelectedUsers[index]),  dispatch))}
             </div>
             {AddUser(dispatch)}
         </div>

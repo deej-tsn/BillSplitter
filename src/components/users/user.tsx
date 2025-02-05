@@ -12,7 +12,7 @@ export default function UserComp(user : User, index:number, isCurrentUser:boolea
         dispatch(setCurrentUser(index))
     }
     return (
-        <div key={user.name} onClick={handleClick} className="user" id={isCurrentUser? "currentUser" : undefined}>
+        <div key={user.name} onClick={handleClick} className={`user ${isCurrentUser? 'selected' : '' }`}>
             <div className="userHero">
                 <div>
                     <h1 className="userName">{user.name}</h1>
