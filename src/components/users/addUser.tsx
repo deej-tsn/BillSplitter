@@ -13,7 +13,10 @@ export default function AddUser(dispatch : Dispatch<UnknownAction>) {
         let details = event.target as unknown as {
             name: HTMLInputElement,
         };
-        dispatch(createUser(details.name.value))
+        let value = details.name.value.trim();
+        if(value != "") dispatch(createUser(value));
+        details.name.value = '';
+
     }
 
 

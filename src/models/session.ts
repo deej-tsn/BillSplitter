@@ -9,13 +9,15 @@ import { Item } from './item';
 type Session = {
   users: User[];
   leftOver : Receipt,
-  currentUser: number | null;
+  currentUser: number | null,
+  currentItem : number | null,
 };
 
 const initialState: Session = {
   users:[],
   leftOver : dataToRecipe(data),
   currentUser: null,
+  currentItem: null,
 };
 
 const sessionSlice = createSlice({
@@ -33,23 +35,28 @@ const sessionSlice = createSlice({
     setCurrentUser: (state, action: PayloadAction<number>) => {
       state.currentUser = action.payload;
     },
-    addItemToUser: (state, action: PayloadAction<Item>) => {
-      const item = action.payload;
-      if (state.currentUser == null) return;
+    setCurrentItem: (state, action: PayloadAction<number>) => {
+      state.currentItem = action.payload
+    },
+    addItemToUser: (state) => {
+      if (state.currentUser == null || state.currentItem == null) return;
+      const item = state.leftOver.items[state.currentItem];
       state.users[state.currentUser].recipe = addToRecipe(state.users[state.currentUser].recipe, item);
       state.leftOver = deleteFromRecipe(state.leftOver, item);
-      state.users[state.currentUser].recipe.items = sortRecipe(state.users[state.currentUser].recipe)
+      state.users[state.currentUser].recipe.items = sortRecipe(state.users[state.currentUser].recipe);
+      state.currentItem = null;
     },
     removeItemFromUser: (state , action: PayloadAction<{user:User, item:Item}>) => {
       const {user, item} = action.payload;
       state.leftOver = addToRecipe(state.leftOver, item);
       const stateUser = state.users.find((temp_user) => temp_user.name == user.name)!;
       stateUser.recipe = deleteFromRecipe(stateUser.recipe, item);
-      state.leftOver.items = sortRecipe(state.leftOver)
+      state.leftOver.items = sortRecipe(state.leftOver);
+      state.currentItem = null;
 
     }
   },
 });
 
-export const { createUser, setCurrentUser, addItemToUser, removeItemFromUser } = sessionSlice.actions;
+export const { createUser, setCurrentUser,setCurrentItem, addItemToUser, removeItemFromUser } = sessionSlice.actions;
 export default sessionSlice.reducer;

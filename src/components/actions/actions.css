@@ -1,0 +1,10 @@
+
+.action{
+    background-color: rgb(156, 156, 156);
+    padding: 1rem;
+    margin: 1rem;
+    font-weight: 600;
+    border-radius: 28px;
+    filter: var(--drop_shadow);
+    cursor: pointer;
+}
