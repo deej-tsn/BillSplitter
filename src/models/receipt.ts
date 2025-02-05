@@ -45,21 +45,49 @@ export function sortRecipe(receipt : Receipt) : Item[] {
     return sortedItems
 }
 
+export function deleteManyFromRecipe(receipt : Receipt, toDelete : boolean[]):Receipt {
+    if(toDelete.length != receipt.items.length) throw new Error('selected Array of incorrect size');
+    receipt.items.forEach((item, index) => {
+        if(toDelete[index]) item.quantity -= 1;
+    })
+    receipt.items = receipt.items.filter((item) => item.quantity != 0);
+   
+   receipt.cost = adjustCost(receipt);
+   return receipt;
+}
+
 export function deleteFromRecipe(receipt : Receipt, itemToRemove : Item) : Receipt{
     const itemInRecipe = receipt.items.find((item) => item.name == itemToRemove.name);
     if (itemInRecipe == undefined) throw new Error('Item not in Recipe to Delete')
     if(itemInRecipe.quantity < itemToRemove.quantity) throw new Error('Quantity greater than amount left.');
-    let costRemoved;
     if(itemInRecipe.quantity == itemToRemove.quantity){
         receipt.items = receipt.items.filter((item) => item.name != itemToRemove.name);
-        costRemoved = itemInRecipe.quantity * itemInRecipe.price;
     }
     else{
         itemInRecipe.quantity -= itemToRemove.quantity;
-        costRemoved = itemInRecipe.price * itemToRemove.quantity;
     }
     receipt.cost = adjustCost(receipt);
     return receipt
+}
+
+export function addManyToRecipe(receiptTo : Receipt, receiptFrom : Receipt, selected : boolean[]){
+    receiptFrom.items.forEach((item, index) => {
+        if(selected[index]){
+            let itemIn = receiptTo.items.find((toItem) => toItem.name == item.name)
+            if(itemIn == undefined){
+                let newItem : Item = {
+                    name : item.name,
+                    price : item.price,
+                    quantity : 1
+                }
+                receiptTo.items.push(newItem);
+            }else{
+                itemIn.quantity += 1;
+            }
+        }
+    });
+    receiptTo.cost = adjustCost(receiptTo);
+    return receiptTo;
 }
 
 export function addToRecipe(receipt : Receipt, itemToAdd : Item) : Receipt{

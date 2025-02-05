@@ -1,5 +1,4 @@
-import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "../../store/store";
+import { useDispatch} from "react-redux"
 import SendItem from "./sendItemToUser";
 
 export default function ActionHolder(){

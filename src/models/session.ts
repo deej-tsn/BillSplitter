@@ -1,6 +1,6 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { addToRecipe, dataToRecipe, deleteFromRecipe, newUser, Receipt, sortRecipe, User } from './receipt';
+import { addManyToRecipe, addToRecipe, dataToRecipe, deleteFromRecipe, deleteManyFromRecipe, newUser, Receipt, sortRecipe, User } from './receipt';
 import data from '../../data/test_data.json';
 import { Item } from './item';
 
@@ -10,14 +10,14 @@ type Session = {
   users: User[];
   leftOver : Receipt,
   currentUser: number | null,
-  currentItem : number | null,
+  currentSelectedItems : boolean[],
 };
 
 const initialState: Session = {
   users:[],
   leftOver : dataToRecipe(data),
   currentUser: null,
-  currentItem: null,
+  currentSelectedItems : new Array(data.items.length).fill(false),
 };
 
 const sessionSlice = createSlice({
@@ -36,15 +36,15 @@ const sessionSlice = createSlice({
       state.currentUser = action.payload;
     },
     setCurrentItem: (state, action: PayloadAction<number>) => {
-      state.currentItem = action.payload
+      const itemIndex = action.payload
+      state.currentSelectedItems[itemIndex] = !state.currentSelectedItems[itemIndex];
     },
     addItemToUser: (state) => {
-      if (state.currentUser == null || state.currentItem == null) return;
-      const item = state.leftOver.items[state.currentItem];
-      state.users[state.currentUser].recipe = addToRecipe(state.users[state.currentUser].recipe, item);
-      state.leftOver = deleteFromRecipe(state.leftOver, item);
+      if (state.currentUser == null || state.currentSelectedItems.includes(true) == false) return;
+      state.users[state.currentUser].recipe = addManyToRecipe(state.users[state.currentUser].recipe, state.leftOver, state.currentSelectedItems)
+      state.leftOver = deleteManyFromRecipe(state.leftOver, state.currentSelectedItems);
       state.users[state.currentUser].recipe.items = sortRecipe(state.users[state.currentUser].recipe);
-      state.currentItem = null;
+      state.currentSelectedItems = new Array(state.leftOver.items.length).fill(false);
     },
     removeItemFromUser: (state , action: PayloadAction<{user:User, item:Item}>) => {
       const {user, item} = action.payload;
@@ -52,8 +52,8 @@ const sessionSlice = createSlice({
       const stateUser = state.users.find((temp_user) => temp_user.name == user.name)!;
       stateUser.recipe = deleteFromRecipe(stateUser.recipe, item);
       state.leftOver.items = sortRecipe(state.leftOver);
-      state.currentItem = null;
-
+      state.currentSelectedItems = new Array(state.leftOver.items.length).fill(false);
+      console.log(state);
     }
   },
 });

@@ -10,10 +10,10 @@ export default function ItemList() {
     const items = useSelector((state : RootState) => state.session.leftOver.items)
     const dispatch = useDispatch();
 
-    const currentItem = useSelector((state : RootState) => state.session.currentItem)
+    const currentItems = useSelector((state : RootState) => state.session.currentSelectedItems)
 
     //console.log(items)
-    const listOfItems : JSX.Element[] = items.map((item : Item, key) => (ItemComp(key,(key == currentItem), item, dispatch)))
+    const listOfItems : JSX.Element[] = items.map((item : Item, key) => (ItemComp(key,(currentItems[key]), item, dispatch)))
     
     return (
         <div id="itemList">
