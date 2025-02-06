@@ -1,30 +1,40 @@
 .user{
     width: fit-content;
-    height: 4rem;
-    padding: 1rem;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
+    
     flex-direction: column;
     align-items: center;
-    background-color: #9c9c9c;
-    border-radius: 28px;
+    
+    display: flex;
     cursor: pointer;
     filter: var(--drop_shadow);
 
+
     .userHero{
+        height: 4rem;
+        padding: 1rem;
+        border-radius: 28px;
+        background-color: #9c9c9c;
         display: flex;
+        align-items: center;
         flex-direction: row;
         z-index: 10;
+        position: relative;
     }
 
+    .selected{
+        background-color: #767676;
+    }
+    
+
     .userItemList{
-        
         list-style: none;
-        width: 100%;
+        width: 80%;
+        margin: -10px;
         padding: 1rem;
+        padding-top: 1rem;
         background-color: #b8b7b7;
         z-index: 1;
+        position: relative;
 
 
         li{
@@ -44,7 +54,7 @@
 
     .userArrow{
         width: 2rem;
-        height: 100%;
+        
         margin-left: 1rem;
         margin-right: 1rem;
         cursor: pointer;
@@ -96,9 +106,6 @@
     }
 }
 
-.selected{
-    background-color: #767676;
-}
 
 #userContainer{
     width:  75%;
