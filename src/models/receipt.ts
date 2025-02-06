@@ -100,6 +100,7 @@ export function addToRecipe(receipt : Receipt, itemToAdd : Item) : Receipt{
         itemInRecipe.quantity += itemToAdd.quantity;
     }
     receipt.cost = adjustCost(receipt);
+    receipt.items = sortRecipe(receipt);
     return receipt;
 }
 

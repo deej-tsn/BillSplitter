@@ -14,7 +14,7 @@
 #content {
   background-color: white;
   filter:var(--drop_shadow);
-  width: 60%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;

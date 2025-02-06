@@ -51,15 +51,13 @@
     list-style: none;
     width: 80%;
     padding: 0 1rem 0 1rem;
-    background-color: #b8b7b7;
+    background-color: #d1d1d1;
     z-index: 1;
     position: relative;
     transition : max-height 0.5s ease-in-out;
     box-sizing: border-box;
     margin-top: 0;
     
-
-
     li{
         margin: 1rem 0 1rem 0;
         display: flex;
@@ -75,6 +73,7 @@
             align-items: center;
             margin: 0;
             width: 60%;
+            font-weight: 400;
         }
 
         button {

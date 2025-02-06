@@ -8,9 +8,11 @@ export default function UserItem(user : User, item : Item, userIndex: number, di
     function buttonHandler(event : React.MouseEvent<HTMLButtonElement>){
         event.preventDefault()
         console.log(event);
+        let defaultQuantity = 1;
+        if(defaultQuantity > item.quantity) defaultQuantity = item.quantity;
         let newItem : Item = {
             name : item.name,
-            quantity : 1,
+            quantity : defaultQuantity,
             price : item.price
         }
         dispatch(removeItemFromUser({
