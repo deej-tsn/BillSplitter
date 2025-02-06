@@ -12,11 +12,14 @@ export default function UserComp(user : User, index:number, isCurrentUser:boolea
     }
 
 
-    function flipItemListState(event : React.MouseEvent<HTMLDivElement>){
+    function flipItemListState(event : any){
         event.preventDefault()
-        let div : HTMLDivElement = event.target.parentElement.parentElement
-        div.classList.toggle('closed')
-        div.classList.toggle('open')
+        event.stopPropagation()
+        if(event.target.parentElement.parentElement){
+            let div : HTMLDivElement = event.target.parentElement.parentElement
+            div.classList.toggle('closed')
+            div.classList.toggle('open')
+        }
     }
     return (
         <div key={user.name} onClick={handleClick} className={`user  closed`}>

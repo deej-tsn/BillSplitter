@@ -29,24 +29,38 @@
     .userItemList{
         list-style: none;
         width: 80%;
-        margin: -10px;
-        padding: 1rem;
-        padding-top: 1rem;
+        padding: 0 1rem 0 1rem;
         background-color: #b8b7b7;
         z-index: 1;
         position: relative;
+        transition : max-height 0.5s ease-in-out;
+        box-sizing: border-box;
+        margin-top: 0;
+        
 
 
         li{
-            margin-top: 1rem;
+            margin: 1rem 0 1rem 0;
             display: flex;
+            justify-content: space-evenly;
+            transition: opacity 0.1s ease-in-out;
 
             .userItemRight{
-                margin-left: auto;
+                width: fit-content;
             }
 
             h4{
+                display: flex;
+                align-items: center;
                 margin: 0;
+                width: 60%;
+            }
+
+            button {
+                border: 0;
+                padding: 0.5rem;
+                border-radius: 28px;
+                cursor: pointer;
             }
 
         }
@@ -93,22 +107,23 @@
         border-radius: 100px;
     }
 }
-<<<<<<< HEAD
-
-.selected{
-    background-color: #767676;
-=======
 .user.open{
     .userItemList{
-        height: fit-content;
+        max-height: 10rem;
+        overflow-y: auto;
+        li {
+            opacity:  100%;
+        }
     }
->>>>>>> styleUserDropdown
 }
 
 .user.closed{
     .userItemList{
-        height: 0;
-        opacity: 0;
+        max-height: 0;
+        overflow-y: hidden;
+        li {
+            opacity:  0;
+        }
     }
 }
 
