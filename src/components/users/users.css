@@ -1,5 +1,5 @@
 .user{
-    width: 15rem;
+    width: fit-content;
     height: 4rem;
     padding: 1rem;
     margin-left: auto;
@@ -15,12 +15,17 @@
     .userHero{
         display: flex;
         flex-direction: row;
+        z-index: 10;
     }
 
     .userItemList{
+        
         list-style: none;
         width: 100%;
-        padding: 0;
+        padding: 1rem;
+        background-color: #b8b7b7;
+        z-index: 1;
+
 
         li{
             margin-top: 1rem;
@@ -35,6 +40,14 @@
             }
 
         }
+    }
+
+    .userArrow{
+        width: 2rem;
+        height: 100%;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        cursor: pointer;
     }
 
     .userName{
@@ -70,8 +83,20 @@
         border-radius: 100px;
     }
 }
+.user.open{
+    .userItemList{
+        height: fit-content;
+    }
+}
 
-#currentUser{
+.user.closed{
+    .userItemList{
+        height: 0;
+        opacity: 0;
+    }
+}
+
+.selected{
     background-color: #767676;
 }
 
