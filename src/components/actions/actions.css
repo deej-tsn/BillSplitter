@@ -8,3 +8,10 @@
     filter: var(--drop_shadow);
     cursor: pointer;
 }
+
+#actionsHolder {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}

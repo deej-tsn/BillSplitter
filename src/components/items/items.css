@@ -47,17 +47,12 @@
 }
 
 #itemHolder{
-    width:  75%;
-    height: fit-content;
-
-    background-color: rgb(193, 193, 193);
-    margin: 0;
-    margin-bottom: 3rem;
-    padding: 2rem;
-    padding-top: 1rem;
-    border-radius: 28px;
-    filter: var(--drop_shadow);
-    
+    width:  100%;
+    height: fit-content; 
+     
+    h1 {
+        margin-top: 0;
+    }
 }
 
 #itemList{

@@ -10,11 +10,13 @@ function App() {
   console.log(session);
 
   return (
-    <>
+    <div id="content">
       {ItemHolder()}
+      <hr/>
       {UserContainer()}
+      <hr/>
       {ActionHolder()}
-    </>
+    </div>
   )
 }
 

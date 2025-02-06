@@ -1,14 +1,31 @@
 :root{
-  --primary_color: #444444
-
+  --primary_color: #444444;
+  --drop_shadow: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }
 
 #root{
   width: 100%;
+  min-height: 100vh;
   height: fit-content;
   display: flex;
-  
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#content {
+  background-color: white;
+  filter:var(--drop_shadow);
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+
+}
+
+hr {
+  height: 1px;
+  width: 100%;
+  background-color: black;
+  border: black;
 }
