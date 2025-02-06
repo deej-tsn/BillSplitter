@@ -1,5 +1,7 @@
 :root{
   --drop_shadow: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  --primary-color : rgb(192, 192, 192);
+  --selected-color : rgb(163, 163, 163);
 }
 
 body {
@@ -7,5 +9,6 @@ body {
   width: 100vw;
   background-image: url("./assets/wall.webp");
   overflow-x: hidden;
+  font-family: 'Roboto', serif;
 }
 

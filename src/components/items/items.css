@@ -6,10 +6,11 @@
     margin-right: auto;
     display: flex;
     align-items: center;
-    background-color: rgb(156, 156, 156);
-    border-radius: 28px;
+    background-color: var(--primary-color);
+    border-radius: 10px;
     filter: var(--drop_shadow);
     cursor: pointer;
+    font-weight: 300;
 
     .itemName{
         margin: 0;
@@ -20,12 +21,13 @@
         text-wrap-mode:nowrap;
         white-space: nowrap;
         text-overflow: ellipsis;
+        font-weight: 300;
     }
 
     .itemPrice{
         margin: 0;
         display: block;
-
+        
     }
 
     .itemQuantity {
@@ -41,10 +43,9 @@
         border-radius: 100px;
     }
 }
-
-#currentItem{
-    background-color: #767676;
-}
+.selected{
+    background-color: var(--selected-color);
+  }
 
 #itemHolder{
     width:  100%;

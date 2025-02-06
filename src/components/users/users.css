@@ -7,105 +7,6 @@
     display: flex;
     cursor: pointer;
     filter: var(--drop_shadow);
-
-
-    .userHero{
-        height: 4rem;
-        padding: 1rem;
-        border-radius: 28px;
-        background-color: #9c9c9c;
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-        z-index: 10;
-        position: relative;
-    }
-
-    .selected{
-        background-color: #767676;
-    }
-    
-
-    .userItemList{
-        list-style: none;
-        width: 80%;
-        padding: 0 1rem 0 1rem;
-        background-color: #b8b7b7;
-        z-index: 1;
-        position: relative;
-        transition : max-height 0.5s ease-in-out;
-        box-sizing: border-box;
-        margin-top: 0;
-        
-
-
-        li{
-            margin: 1rem 0 1rem 0;
-            display: flex;
-            justify-content: space-evenly;
-            transition: opacity 0.1s ease-in-out;
-
-            .userItemRight{
-                width: fit-content;
-            }
-
-            h4{
-                display: flex;
-                align-items: center;
-                margin: 0;
-                width: 60%;
-            }
-
-            button {
-                border: 0;
-                padding: 0.5rem;
-                border-radius: 28px;
-                cursor: pointer;
-            }
-
-        }
-    }
-
-    .userArrow{
-        width: 2rem;
-        
-        margin-left: 1rem;
-        margin-right: 1rem;
-        cursor: pointer;
-    }
-
-    .userName{
-        margin: 0;
-        display:flex;
-        width: 10rem;
-        height: 2rem;
-        overflow: hidden;
-        text-wrap-mode:nowrap;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-
-    .userQuantity{
-        margin: 0;
-        display: block;
-
-    }
-
-    .userCost {
-        margin: 0;
-        min-width: 3rem;
-        width: fit-content;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        height:3rem;
-        margin-left: auto;
-        margin-right: auto;
-        background-color: rgb(223, 223, 223);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 100px;
-    }
 }
 .user.open{
     .userItemList{
@@ -128,15 +29,113 @@
 }
 
 
+.userHero{
+    height: 4rem;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    z-index: 10;
+    position: relative;
+    
+}
+
+  
+.userHero.selected{
+    background-color: var(--selected-color);
+}
+
+.userItemList{
+    list-style: none;
+    width: 80%;
+    padding: 0 1rem 0 1rem;
+    background-color: #b8b7b7;
+    z-index: 1;
+    position: relative;
+    transition : max-height 0.5s ease-in-out;
+    box-sizing: border-box;
+    margin-top: 0;
+    
+
+
+    li{
+        margin: 1rem 0 1rem 0;
+        display: flex;
+        justify-content: space-evenly;
+        transition: opacity 0.1s ease-in-out;
+
+        .userItemRight{
+            width: fit-content;
+        }
+
+        h4{
+            display: flex;
+            align-items: center;
+            margin: 0;
+            width: 60%;
+        }
+
+        button {
+            border: 0;
+            padding: 0.5rem;
+            border-radius: 28px;
+            cursor: pointer;
+        }
+
+    }
+}
+
+.userArrow{
+    width: 2rem;
+    
+    margin-left: 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.userName{
+    margin: 0;
+    display:flex;
+    width: 10rem;
+    height: 2rem;
+    overflow: hidden;
+    text-wrap-mode:nowrap;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: 300;
+}
+
+.userQuantity{
+    margin: 0;
+    display: block;
+
+}
+
+.userCost {
+    margin: 0;
+    min-width: 3rem;
+    width: fit-content;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    height:3rem;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(223, 223, 223);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+}
+
+
 #userContainer{
     width:  100%;
     height: fit-content;
     margin: 0;
     padding: 2rem;
     padding-top: 1rem;
-    border-radius: 28px;
-    filter: var(--drop_shadow);
-    
 }
 
 #userList{
