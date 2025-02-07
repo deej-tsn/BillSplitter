@@ -7,7 +7,7 @@
 body {
   margin: 0;
   width: 100vw;
-  background-image: url("./assets/wall.webp");
+  background-image: url("../../assets/wall.webp");
   overflow-x: hidden;
   font-family: 'Roboto', serif;
 }

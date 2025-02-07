@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux'
 import './App.css'
-import ItemHolder from './components/items/itemHolder'
-import UserContainer from './components/users/userContainer'
-import { RootState } from './store/store'
-import ActionHolder from './components/actions/actionsHolder'
+import ItemHolder from '../items/itemHolder'
+import UserContainer from '../users/userContainer'
+import { RootState } from '../../store/store'
+import ActionHolder from '../actions/actionsHolder'
+import editItems from '../items/editItems'
 function App() {
 
   const session = useSelector((state : RootState) => state.session);
@@ -16,6 +17,7 @@ function App() {
       {UserContainer()}
       <hr/>
       {ActionHolder()}
+      {editItems(session.leftOver)}
     </div>
   )
 }
