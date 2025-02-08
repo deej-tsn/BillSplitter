@@ -1,6 +1,6 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { addManyToRecipe, addToRecipe, dataToRecipe, deleteFromRecipe, deleteManyFromRecipe, newUser, Receipt, sortRecipe, User } from './receipt';
+import { addManyToRecipe, addToRecipe, dataToRecipe, deleteFromRecipe, deleteManyFromRecipe, newUser, Receipt, setRecipeFromItems, sortRecipe, User } from './receipt';
 import data from '../../data/test_data.json';
 import { Item } from './item';
 
@@ -9,6 +9,7 @@ type Session = {
   leftOver : Receipt,
   currentSelectedUsers: boolean[],
   currentSelectedItems : boolean[],
+  state : "SETUP" | "WORKING"
 };
 
 const initialState: Session = {
@@ -16,6 +17,7 @@ const initialState: Session = {
   leftOver : dataToRecipe(data),
   currentSelectedUsers: [],
   currentSelectedItems : new Array(data.items.length).fill(false),
+  state : "SETUP"
 };
 
 const sessionSlice = createSlice({
@@ -77,9 +79,16 @@ const sessionSlice = createSlice({
       }
       state.leftOver = deleteFromRecipe(state.leftOver, removedItem);
       state.currentSelectedItems = new Array(state.leftOver.items.length).fill(false);
+    },
+    editItemsDispatch : (state : Session, action: PayloadAction<Item[]>) => {
+      state.leftOver = setRecipeFromItems(state.leftOver, action.payload);
+      state.currentSelectedItems = new Array(state.leftOver.items.length).fill(false);
+    },
+    changeState: (state: Session, action : PayloadAction<"SETUP"| "WORKING">) => {
+      state.state = action.payload;
     }
   },
 });
 
-export const { createUser, setCurrentUser,setCurrentItem, addItemToOneUser,splitItem, removeItemFromUser } = sessionSlice.actions;
+export const { createUser, setCurrentUser,setCurrentItem, addItemToOneUser,splitItem, removeItemFromUser, editItemsDispatch , changeState} = sessionSlice.actions;
 export default sessionSlice.reducer;

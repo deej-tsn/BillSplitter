@@ -40,6 +40,13 @@ export function newUser(name:string, charges : Charge[]) : User {
     }
 }
 
+export function setRecipeFromItems(recipe : Receipt, newItems : Item[]) : Receipt{
+    recipe.items = newItems;
+    recipe.cost = adjustCost(recipe);
+    recipe.items = sortRecipe(recipe);
+    return recipe;
+}
+
 export function sortRecipe(receipt : Receipt) : Item[] {
     let sortedItems = receipt.items.sort((a , b) => a.name.localeCompare(b.name))
     return sortedItems

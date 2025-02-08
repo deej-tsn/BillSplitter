@@ -10,7 +10,7 @@ export default function ItemHolder() {
     return (
         <div id="itemHolder">
             <h1>Items Left:</h1>
-                {ItemList()}
+                {<ItemList/>}
             <h4><span style={{fontWeight : 400}}> Cost Left To Allocate :</span> £{cost}</h4>
         </div>
     )

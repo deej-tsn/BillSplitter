@@ -1,11 +1,21 @@
 
 import { setCurrentUser} from "../../models/session"
-import UserItem from "./userItem"
 import "./users.css"
 import { User } from "../../models/receipt"
 import downArrow from "../../assets/downArrow.svg";
-export default function UserComp(user : User, index:number, isCurrentUser:boolean,  dispatch :any) {
+import { useDispatch } from "react-redux";
+import UserItems from "./userItems";
+
+interface UserCompProps {
+    user : User,
+    index: number,
+    isCurrentUser : boolean
+}
+
+export default function UserComp({user, index,isCurrentUser} : UserCompProps) {
     
+    const dispatch = useDispatch();
+
     function handleClick(event : React.MouseEvent<HTMLDivElement>){
         event.preventDefault()
         dispatch(setCurrentUser(index))
@@ -22,7 +32,7 @@ export default function UserComp(user : User, index:number, isCurrentUser:boolea
         }
     }
     return (
-        <div key={user.name} onClick={handleClick} className={`user  closed`}>
+        <div onClick={handleClick} className={`user  closed`}>
             <div className={`userHero ${isCurrentUser && 'selected'}`}>
                 <div>
                     <h1 className="userName">{user.name}</h1>
@@ -32,7 +42,7 @@ export default function UserComp(user : User, index:number, isCurrentUser:boolea
                 <img className='userArrow'src={downArrow} onClick={flipItemListState}/>
             </div>
             <ul className="userItemList">
-                {user.recipe.items.map((item, userIndex) => UserItem(user, item, userIndex,  dispatch))}
+                {user.recipe.items.map((item, userIndex) => <UserItems key={index} user={user} item={item} userIndex={userIndex}/>)}
             </ul>
         </div>
 

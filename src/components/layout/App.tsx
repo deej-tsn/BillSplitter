@@ -1,23 +1,24 @@
-import { useSelector } from 'react-redux'
+import {useSelector } from 'react-redux'
 import './App.css'
 import ItemHolder from '../items/itemHolder'
 import UserContainer from '../users/userContainer'
 import { RootState } from '../../store/store'
 import ActionHolder from '../actions/actionsHolder'
-import editItems from '../items/editItems'
+import EditItems from '../items/editItems'
+
+
 function App() {
 
   const session = useSelector((state : RootState) => state.session);
-  console.log(session);
 
   return (
     <div id="content">
-      {ItemHolder()}
+      {session.state === 'WORKING' && <ItemHolder/>}
       <hr/>
-      {UserContainer()}
+      { session.state === 'WORKING' && <UserContainer/>}
       <hr/>
-      {ActionHolder()}
-      {editItems(session.leftOver)}
+      { session.state === 'WORKING' && <ActionHolder/>}
+      {session.state === 'SETUP' && <EditItems receipt={session.leftOver}/>}
     </div>
   )
 }

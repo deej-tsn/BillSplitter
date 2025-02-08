@@ -8,12 +8,11 @@ import { Item } from "../../models/item";
 export default function ItemList() {
 
     const items = useSelector((state : RootState) => state.session.leftOver.items)
-    const dispatch = useDispatch();
 
     const selectedItems = useSelector((state : RootState) => state.session.currentSelectedItems)
 
     //console.log(items)
-    const listOfItems : JSX.Element[] = items.map((item : Item, key) => (ItemComp(key,(selectedItems[key]), item, dispatch)))
+    const listOfItems = items.map((item : Item, key:number) => (<ItemComp index={key} isSelected = {selectedItems[key]} item={item}/>))
     
     return (
         <div id="itemList">
