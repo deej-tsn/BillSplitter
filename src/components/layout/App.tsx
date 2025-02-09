@@ -12,14 +12,20 @@ function App() {
   const session = useSelector((state : RootState) => state.session);
 
   return (
-    <div id="content">
-      {session.state === 'WORKING' && <ItemHolder/>}
-      <hr/>
-      { session.state === 'WORKING' && <UserContainer/>}
-      <hr/>
-      { session.state === 'WORKING' && <ActionHolder/>}
+    <>
+      {session.state === 'WORKING' && 
+        <div id="content">
+          <ItemHolder/>
+          <hr/>
+          <UserContainer/>
+          <hr/>
+          <ActionHolder/>
+        </div>
+      }
+      
       {session.state === 'SETUP' && <EditItems receipt={session.leftOver}/>}
-    </div>
+    </>
+
   )
 }
 

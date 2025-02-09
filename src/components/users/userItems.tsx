@@ -36,7 +36,6 @@ export default function UserItems({user, item, userIndex} : UserItemsProp){
             <h4>{item.name}</h4>
             <h4 className="userItemRight">{item.quantity}</h4>
             <button onClick={buttonHandler}>remove</button>
-
         </li>
     )
 }
