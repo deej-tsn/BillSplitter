@@ -1,23 +1,23 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { addManyToRecipe, addToRecipe, dataToRecipe, deleteFromRecipe, deleteManyFromRecipe, newUser, Receipt, setRecipeFromItems, sortRecipe, User } from './receipt';
 import data from '../../data/test_data.json';
 import { Item } from './item';
+import { addManyToReceipt, addToReceipt, adjustCost, Charge, dataToReceipt, deleteFromReceipt, deleteManyFromReceipt, newUser, Receipt, sortItems, User } from './receipt';
 
-type Session = {
+export type Session = {
   users: User[];
   leftOver : Receipt,
   currentSelectedUsers: boolean[],
   currentSelectedItems : boolean[],
-  state : "SETUP" | "WORKING"
+  stage : number
 };
 
 const initialState: Session = {
   users:[],
-  leftOver : dataToRecipe(data),
+  leftOver : dataToReceipt(data),
   currentSelectedUsers: [],
   currentSelectedItems : new Array(data.items.length).fill(false),
-  state : "SETUP"
+  stage : 1
 };
 
 const sessionSlice = createSlice({
@@ -43,17 +43,17 @@ const sessionSlice = createSlice({
     addItemToOneUser: (state : Session) => {
       if (state.currentSelectedItems.includes(true) == false) return;
       let userIndex = state.currentSelectedUsers.findIndex((isSelected: boolean) => isSelected)
-      state.users[userIndex].recipe = addManyToRecipe(state.users[userIndex].recipe, state.leftOver, state.currentSelectedItems)
-      state.leftOver = deleteManyFromRecipe(state.leftOver, state.currentSelectedItems);
-      state.users[userIndex].recipe.items = sortRecipe(state.users[userIndex].recipe);
+      state.users[userIndex].receipt = addManyToReceipt(state.users[userIndex].receipt, state.leftOver, state.currentSelectedItems)
+      state.leftOver = deleteManyFromReceipt(state.leftOver, state.currentSelectedItems);
+      state.users[userIndex].receipt.items = sortItems(state.users[userIndex].receipt.items);
       state.currentSelectedItems = new Array(state.leftOver.items.length).fill(false);
     },
     removeItemFromUser: (state : Session , action: PayloadAction<{user:User, item:Item}>) => {
       const {user, item} = action.payload;
-      state.leftOver = addToRecipe(state.leftOver, item);
+      state.leftOver = addToReceipt(state.leftOver, item);
       const stateUser = state.users.find((temp_user : User) => temp_user.name == user.name)!;
-      stateUser.recipe = deleteFromRecipe(stateUser.recipe, item);
-      state.leftOver.items = sortRecipe(state.leftOver);
+      stateUser.receipt = deleteFromReceipt(stateUser.receipt, item);
+      state.leftOver.items = sortItems(state.leftOver.items);
       state.currentSelectedItems = new Array(state.leftOver.items.length).fill(false);
     },
     splitItem : (state : Session) => {
@@ -70,25 +70,44 @@ const sessionSlice = createSlice({
             price : originalItem.price,
             quantity : 1/numOfUsers
           }
-          state.users[index].recipe = addToRecipe(user.recipe, item);
+          state.users[index].receipt = addToReceipt(user.receipt, item);
         }
       });
       let removedItem : Item = {
         ...originalItem,
         quantity : 1,
       }
-      state.leftOver = deleteFromRecipe(state.leftOver, removedItem);
+      state.leftOver = deleteFromReceipt(state.leftOver, removedItem);
       state.currentSelectedItems = new Array(state.leftOver.items.length).fill(false);
     },
-    editItemsDispatch : (state : Session, action: PayloadAction<Item[]>) => {
-      state.leftOver = setRecipeFromItems(state.leftOver, action.payload);
+    updateReceipt : (state : Session, action: PayloadAction<Receipt>) => {
+      state.leftOver = action.payload;
       state.currentSelectedItems = new Array(state.leftOver.items.length).fill(false);
     },
-    changeState: (state: Session, action : PayloadAction<"SETUP"| "WORKING">) => {
-      state.state = action.payload;
+    updateItemInReceipt : (state : Session, action : PayloadAction<{item : Item, index: number}>) => {
+      const {item, index} = action.payload;
+      if(index < 0 || index >= state.leftOver.items.length) throw new Error("given index not in Range");
+      state.leftOver.items = state.leftOver.items.map((itemInArray, indexInArray) => (indexInArray == index)? item : itemInArray);
+      state.leftOver.items = sortItems(state.leftOver.items);
+      state.leftOver.cost = adjustCost(state.leftOver);
+      state.currentSelectedItems = new Array(state.leftOver.items.length).fill(false);
+    },
+    updateChargeInReceipt : (state : Session, action : PayloadAction<{charge : Charge, index: number}>) => {
+      const {charge, index} = action.payload;
+      if(index < 0 || index >= state.leftOver.charges.length) throw new Error("given index not in Range");
+      state.leftOver.charges = state.leftOver.charges.map((chargeInArray, indexInArray) => (indexInArray == index)? charge : chargeInArray);
+      state.leftOver.cost = adjustCost(state.leftOver);
+    }, 
+    nextStage: (state: Session) => {
+      if(state.stage < 5) state.stage += 1;
+      else throw new Error("Stage at 5 already");
+    },
+    prevStage: (state: Session) => {
+      if(state.stage > 1) state.stage -=1;
+      else throw new Error("Stage at 1 already");
     }
   },
 });
 
-export const { createUser, setCurrentUser,setCurrentItem, addItemToOneUser,splitItem, removeItemFromUser, editItemsDispatch , changeState} = sessionSlice.actions;
+export const { createUser, setCurrentUser,setCurrentItem, addItemToOneUser,splitItem, removeItemFromUser, updateReceipt,updateItemInReceipt, updateChargeInReceipt, prevStage, nextStage} = sessionSlice.actions;
 export default sessionSlice.reducer;

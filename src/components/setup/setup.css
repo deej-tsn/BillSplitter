@@ -1,0 +1,134 @@
+#blur {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 1;
+    backdrop-filter: blur(10px);
+}
+
+#editReceipt{
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    overflow-y: auto;
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+
+    padding: 1rem;
+    background-color: var(--primary-color);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h3{
+        width: fit-content;
+    }
+
+    
+
+    button {
+        width: fit-content;
+    }
+}
+
+#editItems{
+    height: 10rem;
+    overflow-y: auto;
+    margin: 1rem;
+}
+
+.editable{
+    margin: 1rem;
+    padding: 1rem;
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+
+    .editableNumbers {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-evenly;
+
+        input{
+            width: 3rem;
+        }
+    }
+
+    /* Hide Spin arrows on input type number */
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none;
+
+        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+    }
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+
+    input{
+        margin-left: 0.5rem;
+        
+    }
+    label{
+        font-weight: 600;
+    }
+}
+
+#indicatorHolder{
+    width: 10rem;
+    height: fit-content;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 1rem;
+    position: absolute;
+    bottom: 1rem;
+
+    button {
+        border: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+        background-color: var(--primary-color);
+        padding: 0.3rem;
+        border-radius: 100px;
+        text-align: center;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: large;
+    }
+}
+.indicator {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: var(--primary-color);
+    border-radius: 25px;
+}
+
+.indicator.currentStage{
+    background-color: rgb(134, 134, 134);
+}
+
+#stageController{
+    width: 30rem;
+    height:35rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    position: relative;
+    filter: var(--drop_shadow);
+    text-align: center;
+}
+
+.user {
+    font-weight: 600;
+}

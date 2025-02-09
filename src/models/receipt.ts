@@ -2,11 +2,11 @@ import { Item } from "./item";
 
 export type User = {
     name: string;
-    recipe : Receipt
+    receipt : Receipt
   };
 
 
-type Charge = {
+export type Charge = {
     name : string,
     charge_value : number // -1 < x < ∞ // Negative means discount, Positive means tax
 }
@@ -18,14 +18,14 @@ export type Receipt = {
     cost: string
 }
 
-export function dataToRecipe(data : any) : Receipt{
+export function dataToReceipt(data : any) : Receipt{
     let initialState = data as Receipt
     initialState.cost = adjustCost(data)
-    initialState.items = sortRecipe(initialState);
+    initialState.items = sortItems(initialState.items);
     return initialState;
 }
 
-function newEmptyRecipe(charges : Charge[]) : Receipt{
+function newEmptyReceipt(charges : Charge[]) : Receipt{
     return {
         items: [],
         charges : charges,
@@ -36,23 +36,32 @@ function newEmptyRecipe(charges : Charge[]) : Receipt{
 export function newUser(name:string, charges : Charge[]) : User {
     return {
         name : name,
-        recipe : newEmptyRecipe(charges)
+        receipt : newEmptyReceipt(charges)
     }
 }
 
-export function setRecipeFromItems(recipe : Receipt, newItems : Item[]) : Receipt{
-    recipe.items = newItems;
-    recipe.cost = adjustCost(recipe);
-    recipe.items = sortRecipe(recipe);
-    return recipe;
+export function setReceiptFromItems(receipt : Receipt, newItems : Item[]) : Receipt{
+    receipt.items = newItems;
+    receipt.cost = adjustCost(receipt);
+    receipt.items = sortItems(receipt.items);
+    return receipt;
 }
 
-export function sortRecipe(receipt : Receipt) : Item[] {
-    let sortedItems = receipt.items.sort((a , b) => a.name.localeCompare(b.name))
+export function setReceiptFromCharge(receipt : Receipt, newCharges: Charge[]) : Receipt{
+    receipt.charges = newCharges;
+    receipt.cost = adjustCost(receipt);
+    receipt.items = sortItems(receipt.items);
+    return receipt;
+}
+
+
+
+export function sortItems(items : Item[]) : Item[] {
+    let sortedItems = items.sort((a , b) => a.name.localeCompare(b.name))
     return sortedItems
 }
 
-export function deleteManyFromRecipe(receipt : Receipt, toDelete : boolean[]):Receipt {
+export function deleteManyFromReceipt(receipt : Receipt, toDelete : boolean[]):Receipt {
     if(toDelete.length != receipt.items.length) throw new Error('selected Array of incorrect size');
     receipt.items.forEach((item, index) => {
         if(toDelete[index]) item.quantity -= 1;
@@ -63,21 +72,21 @@ export function deleteManyFromRecipe(receipt : Receipt, toDelete : boolean[]):Re
    return receipt;
 }
 
-export function deleteFromRecipe(receipt : Receipt, itemToRemove : Item) : Receipt{
-    const itemInRecipe = receipt.items.find((item) => item.name == itemToRemove.name);
-    if (itemInRecipe == undefined) throw new Error('Item not in Recipe to Delete')
-    if(itemInRecipe.quantity < itemToRemove.quantity) throw new Error('Quantity greater than amount left.');
-    if(itemInRecipe.quantity == itemToRemove.quantity){
+export function deleteFromReceipt(receipt : Receipt, itemToRemove : Item) : Receipt{
+    const itemInReceipt = receipt.items.find((item) => item.name == itemToRemove.name);
+    if (itemInReceipt == undefined) throw new Error('Item not in Receipt to Delete')
+    if(itemInReceipt.quantity < itemToRemove.quantity) throw new Error('Quantity greater than amount left.');
+    if(itemInReceipt.quantity == itemToRemove.quantity){
         receipt.items = receipt.items.filter((item) => item.name != itemToRemove.name);
     }
     else{
-        itemInRecipe.quantity -= itemToRemove.quantity;
+        itemInReceipt.quantity -= itemToRemove.quantity;
     }
     receipt.cost = adjustCost(receipt);
     return receipt
 }
 
-export function addManyToRecipe(receiptTo : Receipt, receiptFrom : Receipt, selected : boolean[]){
+export function addManyToReceipt(receiptTo : Receipt, receiptFrom : Receipt, selected : boolean[]){
     receiptFrom.items.forEach((item, index) => {
         if(selected[index]){
             let itemIn = receiptTo.items.find((toItem) => toItem.name == item.name)
@@ -97,24 +106,24 @@ export function addManyToRecipe(receiptTo : Receipt, receiptFrom : Receipt, sele
     return receiptTo;
 }
 
-export function addToRecipe(receipt : Receipt, itemToAdd : Item) : Receipt{
-    const itemInRecipe = receipt.items.find((item) => item.name == itemToAdd.name);
-    if (itemInRecipe == undefined){
-        // add to Recipe
+export function addToReceipt(receipt : Receipt, itemToAdd : Item) : Receipt{
+    const itemInReceipt = receipt.items.find((item) => item.name == itemToAdd.name);
+    if (itemInReceipt == undefined){
+        // add to Receipt
         receipt.items.push(itemToAdd);
     }
     else {
-        itemInRecipe.quantity += itemToAdd.quantity;
+        itemInReceipt.quantity += itemToAdd.quantity;
     }
     receipt.cost = adjustCost(receipt);
-    receipt.items = sortRecipe(receipt);
+    receipt.items = sortItems(receipt.items);
     return receipt;
 }
 
 
 
 
-//function newRecipeFromData()
+//function newReceiptFromData()
 
 export function adjustCost(receipt  : Receipt) : string {
     let cost = 0;

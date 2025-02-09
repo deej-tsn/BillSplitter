@@ -11,7 +11,7 @@ export default function ItemList() {
 
     const selectedItems = useSelector((state : RootState) => state.session.currentSelectedItems)
 
-    const listOfItems = items.map((item : Item, key:number) => (<ItemComp index={key} isSelected = {selectedItems[key]} item={item}/>))
+    const listOfItems = items.map((item : Item, index:number) => (<ItemComp key={index} index={index} isSelected = {selectedItems[index]} item={item}/>))
     
     return (
         <div id="itemList">

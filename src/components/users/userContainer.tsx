@@ -10,7 +10,7 @@ export default function UserContainer() {
 
     return (
         <div id="userContainer">
-            <h1>Eaters</h1>
+            <h1>Diners</h1>
             <div id="userList">
                 {users.map((user,index) => <UserComp key={index} user={user}  index={index} isCurrentUser={currentSelectedUsers[index]}/>)}
             </div>
