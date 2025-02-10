@@ -88,7 +88,6 @@ const sessionSlice = createSlice({
       const {item, index} = action.payload;
       if(index < 0 || index >= state.leftOver.items.length) throw new Error("given index not in Range");
       state.leftOver.items = state.leftOver.items.map((itemInArray, indexInArray) => (indexInArray == index)? item : itemInArray);
-      state.leftOver.items = sortItems(state.leftOver.items);
       state.leftOver.cost = adjustCost(state.leftOver);
       state.currentSelectedItems = new Array(state.leftOver.items.length).fill(false);
     },

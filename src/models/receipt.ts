@@ -21,7 +21,7 @@ export type Receipt = {
 export function dataToReceipt(data : any) : Receipt{
     let initialState = data as Receipt
     initialState.cost = adjustCost(data)
-    initialState.items = sortItems(initialState.items);
+    //initialState.items = sortItems(initialState.items);
     return initialState;
 }
 

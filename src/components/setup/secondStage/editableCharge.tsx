@@ -24,16 +24,11 @@ export default function EditableCharge({charge, index} : EditableChargeProps){
         dispatch(updateChargeInReceipt({charge: newCharge, index : index}))
     }
     return (
-        <div className="editable">
-            <div>
-                <label>Name:</label>
-                <input onChange={(e) => handleChange(index,'name', e.target.value)}  name="chargeName" type="text" defaultValue={charge.name}/>
-            </div>
-            <div>
-                <label>Percentage:</label>
-                <input onChange={(e) => handleChange(index, 'charge_value', e.target.value)} className="priceInput" name="charge_value" type="number" step="0.01" min="-100" defaultValue={`${charge.charge_value}`}/>
-            </div>
-            
-        </div>
+        <tr>
+            <td className="Name"><input onChange={(e) => handleChange(index,'name', e.target.value)}  name="chargeName" type="text" defaultValue={charge.name}/></td>
+            <td className="Percentage"><input onChange={(e) => handleChange(index, 'charge_value', e.target.value)} className="priceInput" name="charge_value" type="number" step="0.01" min="-100" defaultValue={`${charge.charge_value}`}/></td>
+            <td className="Difference">-£10</td>
+        </tr>
+               
     )
 }
