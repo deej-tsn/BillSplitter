@@ -15,12 +15,13 @@ function App() {
   return (
     <>
       {session.stage < 5&& <StageController/>}
-      {session.stage == 5 && <div>
-        
-
-
-
-      </div>}
+      {session.stage == 5 && <div id="content">
+          <ItemHolder/>
+          <hr/>
+          <UserContainer/>
+          <hr/>
+          <ActionHolder/>
+        </div>}
     </>
   )
 }

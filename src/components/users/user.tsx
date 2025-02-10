@@ -36,13 +36,13 @@ export default function UserComp({user, index,isCurrentUser} : UserCompProps) {
             <div className={`userHero ${isCurrentUser && 'selected'}`}>
                 <div>
                     <h1 className="userName">{user.name}</h1>
-                    <h4 className="userQuantity">has {user.recipe.items.length} items</h4>
+                    <h4 className="userQuantity">has {user.receipt.items.length} items</h4>
                 </div>
-                    <h4 className="userCost">£{user.recipe.cost}</h4>
+                    <h4 className="userCost">£{user.receipt.cost}</h4>
                 <img className='userArrow'src={downArrow} onClick={flipItemListState}/>
             </div>
             <ul className="userItemList">
-                {user.recipe.items.map((item, userIndex) => <UserItems key={index} user={user} item={item} userIndex={userIndex}/>)}
+                {user.receipt.items.map((item, userIndex) => <UserItems key={index} user={user} item={item} userIndex={userIndex}/>)}
             </ul>
         </div>
 
