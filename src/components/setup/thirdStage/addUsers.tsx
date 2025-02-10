@@ -17,13 +17,18 @@ export default function addUsers(){
         details.name.value = '';
     }
     return (
-        <form onSubmit={SubmitForm}>
+        <form id="usersForm" onSubmit={SubmitForm}>
             <h1>Diners</h1>
             <hr/>
-            {users.map((user, index) => <div key={index} className="user">{user.name}</div>)}
+            <div id="users">
+                {users.map((user, index) => <div key={index} className="user">{user.name}</div>)}
+            </div>
             <hr/>
-            <input autoComplete="off" type="text" placeholder="Name" name="name"/>
-            <button type="submit">Add User</button>
+            <div id="addUser">
+                <input autoComplete="off" type="text" placeholder="Name" name="name"/>
+                <button type="submit">Add User</button>
+            </div>
+            
         </form>
     )
 
