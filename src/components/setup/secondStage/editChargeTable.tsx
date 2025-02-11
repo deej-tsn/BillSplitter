@@ -1,26 +1,48 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import "../setup.css"
 import EditableCharge from "./editableCharge";
+import { Charge } from "../../../models/receipt";
+import { useState } from "react";
+import { addChargeToLeftOver } from "../../../models/session";
 
 export default function EditChargesTable(){
 
     const receipt = useSelector((state : RootState) => state.session.leftOver)
     let editChargesComp = receipt.charges.map((charge, index) => <EditableCharge key={index} charge={charge} index={index}/>)
+    const dispatch = useDispatch()
+
+    const [chargeCounter, incrementItemCounter] = useState(0);
+
+    function handleButton(event : React.MouseEvent<HTMLButtonElement>){
+        event.preventDefault()
+
+        let exampleCharge : Charge = {
+            name: `Example Charge ${chargeCounter}`,
+            charge_value : 0.1
+        }
+
+        dispatch(addChargeToLeftOver(exampleCharge))
+        incrementItemCounter(chargeCounter + 1);
+    }
+
 
     return (
-        <table id="editChargesTable">
-            <caption>Additional Charges</caption>
-            <thead>
-                <tr>
-                    <th className="Name">Name</th>
-                    <th className="Pecentage">Percentage</th>
-                    <th className="Difference">Difference</th>
-                </tr>
-            </thead>
-            <tbody>
-                {editChargesComp}
-            </tbody>
-        </table>
+        <>
+            <table id="editChargesTable">
+                <caption>Additional Charges</caption>
+                <thead>
+                    <tr>
+                        <th className="Name">Name</th>
+                        <th className="Pecentage">Percentage</th>
+                        <th className="Difference">Difference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {editChargesComp}
+                </tbody>
+            </table>
+            <button onClick={handleButton}>Add New Item</button>
+        </>
     )
 }

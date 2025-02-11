@@ -8,19 +8,21 @@ export type User = {
 
 export type Charge = {
     name : string,
-    charge_value : number // -1 < x < ∞ // Negative means discount, Positive means tax
+    percentage : number // -100 < x < ∞ // Negative means discount, Positive means tax
 }
 
 
 export type Receipt = {
     items : Item[],
     charges : Charge[], // extra charges, order is important, added in order of array
+    chargeStrategy : "serviceChargeSeperate"| "inOrder"
     cost: string
 }
 
 export function dataToReceipt(data : any) : Receipt{
     let initialState = data as Receipt
-    initialState.cost = adjustCost(data)
+    initialState.chargeStrategy = 'serviceChargeSeperate'
+    initialState.cost = adjustCost(initialState);
     //initialState.items = sortItems(initialState.items);
     return initialState;
 }
@@ -29,6 +31,7 @@ function newEmptyReceipt(charges : Charge[]) : Receipt{
     return {
         items: [],
         charges : charges,
+        chargeStrategy : 'serviceChargeSeperate',
         cost : "0.00"
     } 
 }
@@ -120,17 +123,48 @@ export function addToReceipt(receipt : Receipt, itemToAdd : Item) : Receipt{
     return receipt;
 }
 
-
-
-
-//function newReceiptFromData()
+export function addChargeToReceipt(receipt : Receipt, chargeToAdd : Charge) : Receipt{
+    const chargeInReceipt = receipt.charges.find((charge) => charge.name == chargeToAdd.name);
+    if (chargeInReceipt != undefined) throw new Error("new charge already present ");
+    receipt.charges.push(chargeToAdd);
+    receipt.cost = adjustCost(receipt);
+    return receipt;
+}
 
 export function adjustCost(receipt  : Receipt) : string {
-    let cost = 0;
-    receipt.items.forEach((item) => cost += item.price * item.quantity)
-    let service_charge = cost * receipt.charges[1].charge_value;
-    cost = cost * (1+receipt.charges[0].charge_value);
-    cost += service_charge;
+    let cost = receipt.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    switch(receipt.chargeStrategy){
+        case "serviceChargeSeperate":
+            cost = ChargeStrategy.CS_serviceChargeSeperate(cost, receipt.charges)
+            break;
+        case 'inOrder':
+            cost = ChargeStrategy.CS_Inorder(cost, receipt.charges)
+            break;
+    }
     return cost.toFixed(2);
 }
 
+
+
+export class ChargeStrategy {
+    static CS_Inorder(cost : number, charges : Charge[]) : number{
+        charges.forEach((charge : Charge) => {
+            (charge.percentage > 0) ? cost*=  (1+ charge.percentage/100) : cost *= (100+charge.percentage)/100
+        })
+        return cost;
+    }
+
+    static CS_serviceChargeSeperate(cost : number, charges : Charge[]) : number{
+        let service_charge = charges.find((charge) => charge.name.toLowerCase() === 'service charge');
+        if(service_charge == undefined) return ChargeStrategy.CS_Inorder(cost, charges)
+        let service_charge_value = cost * (service_charge.percentage/100)
+        console.log(service_charge_value);
+        charges = charges.filter((charge) => charge.name.toLowerCase() !== 'service charge')
+        console.log(charges)
+        cost = ChargeStrategy.CS_Inorder(cost, charges)
+        cost += service_charge_value;
+        return cost;
+    }
+    
+    
+}

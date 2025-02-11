@@ -2,11 +2,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import data from '../../data/test_data.json';
 import { Item } from './item';
-import { addManyToReceipt, addToReceipt, adjustCost, Charge, dataToReceipt, deleteFromReceipt, deleteManyFromReceipt, newUser, Receipt, sortItems, User } from './receipt';
+import { addChargeToReceipt, addManyToReceipt, addToReceipt, adjustCost, Charge, ChargeStrategy, deleteFromReceipt, deleteManyFromReceipt, newUser, Receipt, sortItems, User } from './receipt';
 
 export type Session = {
   users: User[];
-  leftOver : Receipt,
+  leftOver : Receipt, 
   currentSelectedUsers: boolean[],
   currentSelectedItems : boolean[],
   stage : number
@@ -14,7 +14,12 @@ export type Session = {
 
 const initialState: Session = {
   users:[],
-  leftOver : dataToReceipt(data),
+  leftOver : {
+    items: [],
+    charges: [],
+    chargeStrategy :'serviceChargeSeperate',
+    cost: ''
+  },
   currentSelectedUsers: [],
   currentSelectedItems : new Array(data.items.length).fill(false),
   stage : 1
@@ -24,6 +29,11 @@ const sessionSlice = createSlice({
   name: 'session',
   initialState,
   reducers: {
+    setLeftOver: (state : Session, action:PayloadAction<Receipt>) => {
+      state.leftOver = action.payload;
+      state.leftOver.chargeStrategy = 'serviceChargeSeperate';
+      state.leftOver.cost = adjustCost(state.leftOver)
+    },
     createUser: (state : Session, action: PayloadAction<string>) => {
       const userName = action.payload;
       if (!state.users.find(user => user.name === userName)) {
@@ -39,6 +49,14 @@ const sessionSlice = createSlice({
     setCurrentItem: (state : Session, action: PayloadAction<number>) => {
       const itemIndex = action.payload
       state.currentSelectedItems[itemIndex] = !state.currentSelectedItems[itemIndex];
+    },
+    addItemToLeftOver : (state : Session, action:PayloadAction<Item>) => {
+      state.leftOver = addToReceipt(state.leftOver, action.payload);
+      state.leftOver.cost = adjustCost(state.leftOver)
+    },
+    addChargeToLeftOver : (state : Session, action:PayloadAction<Charge>) => {
+      state.leftOver = addChargeToReceipt(state.leftOver, action.payload);
+      state.leftOver.cost = adjustCost(state.leftOver)
     },
     addItemToOneUser: (state : Session) => {
       if (state.currentSelectedItems.includes(true) == false) return;
@@ -108,5 +126,6 @@ const sessionSlice = createSlice({
   },
 });
 
-export const { createUser, setCurrentUser,setCurrentItem, addItemToOneUser,splitItem, removeItemFromUser, updateReceipt,updateItemInReceipt, updateChargeInReceipt, prevStage, nextStage} = sessionSlice.actions;
+export const { setLeftOver, createUser, setCurrentUser,setCurrentItem,addItemToLeftOver, addChargeToLeftOver, addItemToOneUser,splitItem, removeItemFromUser, updateReceipt,updateItemInReceipt, updateChargeInReceipt, prevStage, nextStage} = sessionSlice.actions;
 export default sessionSlice.reducer;
+

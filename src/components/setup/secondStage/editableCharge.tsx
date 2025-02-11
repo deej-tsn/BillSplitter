@@ -11,12 +11,12 @@ export default function EditableCharge({charge, index} : EditableChargeProps){
 
     const dispatch = useDispatch()
 
-    function handleChange(index : number, field:'charge_value'|'name', value: string){
+    function handleChange(index : number, field:'percentage'|'name', value: string){
             
         let newCharge = {
             ...charge
         }
-        if(field === 'charge_value'){
+        if(field === 'percentage'){
             newCharge[field] = parseFloat(value);
         }else{
             newCharge["name"] = value;
@@ -26,7 +26,7 @@ export default function EditableCharge({charge, index} : EditableChargeProps){
     return (
         <tr>
             <td className="Name"><input onChange={(e) => handleChange(index,'name', e.target.value)}  name="chargeName" type="text" defaultValue={charge.name}/></td>
-            <td className="Percentage"><input onChange={(e) => handleChange(index, 'charge_value', e.target.value)} className="priceInput" name="charge_value" type="number" step="0.01" min="-100" defaultValue={`${charge.charge_value}`}/></td>
+            <td className="Percentage"><input onChange={(e) => handleChange(index, 'percentage', e.target.value)} className="priceInput" name="charge_value" type="number" step="1" min="-100" defaultValue={`${charge.percentage}`}/></td>
             <td className="Difference">-£10</td>
         </tr>
                
