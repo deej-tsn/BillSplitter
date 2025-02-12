@@ -53,7 +53,6 @@ export function setReceiptFromItems(receipt : Receipt, newItems : Item[]) : Rece
 export function setReceiptFromCharge(receipt : Receipt, newCharges: Charge[]) : Receipt{
     receipt.charges = newCharges;
     receipt.cost = adjustCost(receipt);
-    receipt.items = sortItems(receipt.items);
     return receipt;
 }
 

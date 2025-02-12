@@ -33,7 +33,6 @@ export default function EditableCharge({charge, index} : EditableChargeProps){
         <tr>
             <td className="Name"><input onChange={(e) => handleChange(index,'name', e.target.value)}  name="chargeName" type="text" defaultValue={charge.name}/></td>
             <td className="Percentage"><input onChange={(e) => handleChange(index, 'percentage', e.target.value)} className="priceInput" name="charge_value" type="number" step="1" min="-100" defaultValue={`${charge.percentage}`}/></td>
-            <td className="Difference">-£10</td>
             <td className="Delete" onClick={handleDelete}>X</td>
         </tr>
                

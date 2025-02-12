@@ -14,8 +14,9 @@ export default function ManageReceipt() {
                 <hr/>
                 <EditItemTable/>
                 <hr/>
-                <EditChargesTable/>           
-            <h3>Cost : £{receipt.cost}</h3>
+                <EditChargesTable/>
+                <hr/>  
+                <h3>Cost : £{receipt.cost}</h3>
             </form>
         </>
         

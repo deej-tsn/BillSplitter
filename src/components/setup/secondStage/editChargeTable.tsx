@@ -28,14 +28,13 @@ export default function EditChargesTable(){
 
 
     return (
-        <>
+        <div id="editChargesHolder" className="tableHolder">
             <table id="editChargesTable">
                 <caption>Additional Charges</caption>
                 <thead>
                     <tr>
                         <th className="Name">Name</th>
                         <th className="Pecentage">Percentage</th>
-                        <th className="Difference">Difference</th>
                         <th className="Delete"></th>
                     </tr>
                 </thead>
@@ -44,6 +43,6 @@ export default function EditChargesTable(){
                 </tbody>
             </table>
             <button onClick={handleButton}>Add New Item</button>
-        </>
+        </div>
     )
 }

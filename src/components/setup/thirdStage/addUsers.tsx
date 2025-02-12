@@ -2,9 +2,12 @@ import {  useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import { createUser } from "../../../models/session";
 import "../setup.css";
+import EditableUser from "./editableUser";
 
 export default function addUsers(){
     const users = useSelector((state : RootState) => state.session.users)
+
+    const rows = users.map((user, index) => <EditableUser key={user.name} userName={user.name} index={index}/>)
     const dispatch = useDispatch()
     
     function SubmitForm(event:React.FormEvent<HTMLFormElement>) {
@@ -20,8 +23,18 @@ export default function addUsers(){
         <form id="usersForm" onSubmit={SubmitForm}>
             <h1>Diners</h1>
             <hr/>
-            <div id="users">
-                {users.map((user) => <div key={user.name} className="user">{user.name}</div>)}
+            <div id="usersTableHolder">
+                <table id="usersTable">
+                    <thead>
+                        <tr>
+                        <th className="Name">Name</th>
+                        <th className="Delete"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows}
+                    </tbody>
+                </table>
             </div>
             <hr/>
             <div id="addUser">

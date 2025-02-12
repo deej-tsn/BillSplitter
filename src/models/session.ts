@@ -18,7 +18,7 @@ const initialState: Session = {
     items: [],
     charges: [],
     chargeStrategy :'serviceChargeSeperate',
-    cost: ''
+    cost: '0.00'
   },
   currentSelectedUsers: [],
   currentSelectedItems : new Array(data.items.length).fill(false),
@@ -126,6 +126,10 @@ const sessionSlice = createSlice({
       state.leftOver.charges= state.leftOver.charges.filter((_, indexInArray) => index != indexInArray);
       state.leftOver.cost = adjustCost(state.leftOver);
     },
+    removeUserFromSession : (state : Session, action : PayloadAction<number>) => {
+      const index = action.payload;
+      state.users= state.users.filter((_, indexInArray) => index != indexInArray);
+    },
     nextStage: (state: Session) => {
       if(state.stage == 5) throw new Error("Stage at 5 already");
       else if(state.stage < 4) state.stage += 1;
@@ -143,6 +147,6 @@ const sessionSlice = createSlice({
   },
 });
 
-export const { setLeftOver, createUser, setCurrentUser,setCurrentItem, addItemToOneUser,splitItem, removeItemFromUser, updateLeftOver,updateItemInLeftOver, updateChargeInLeftOver,addItemToLeftOver, addChargeToLeftOver, removeItemFromLeftOver,removeChargeFromLeftOver, prevStage, nextStage} = sessionSlice.actions;
+export const { setLeftOver, createUser, setCurrentUser,setCurrentItem, addItemToOneUser,splitItem, removeItemFromUser, updateLeftOver,updateItemInLeftOver, updateChargeInLeftOver,addItemToLeftOver, addChargeToLeftOver, removeItemFromLeftOver,removeChargeFromLeftOver,removeUserFromSession, prevStage, nextStage} = sessionSlice.actions;
 export default sessionSlice.reducer;
 

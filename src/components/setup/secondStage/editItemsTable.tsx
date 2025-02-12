@@ -10,6 +10,8 @@ export default function EditItemTable(){
 
     const receipt = useSelector((state : RootState) => state.session.leftOver)
     const dispatch = useDispatch()
+
+    // TODO add unique id to Items/Charges/Users when generated;
     let editItemsComp = receipt.items.map((item : Item, index : number) => <EditableItem key={item.name} item={item} index={index}/>);
     const [itemCounter, incrementItemCounter] = useState(0);
     
@@ -28,7 +30,7 @@ export default function EditItemTable(){
     }
 
     return (
-        <>
+        <div id="editTableHolder" className="tableHolder">
             <table id="editItemsTable">
                 <caption>Items</caption>
                 <thead>
@@ -46,6 +48,6 @@ export default function EditItemTable(){
                 
             </table>
             <button onClick={handleButton}>Add New Item</button>
-        </>
+        </div>
     )
 }

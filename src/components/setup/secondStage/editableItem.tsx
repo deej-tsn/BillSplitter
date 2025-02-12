@@ -31,9 +31,9 @@ export default function EditableItem({item, index} : EditableItemProp) {
     }
     return (
         <tr className="itemRow">
-            <td className="Quantity"><input onChange={(e) => handleChange(index, 'quantity', e.target.value)}  className="quantityInput" name="quantity" type="number" step="1" min="0" defaultValue={`${item.quantity}`}/></td>
-            <td className="Name"><input onChange={(e) => handleChange(index,'name', e.target.value)}  name="itemName" type="text" defaultValue={item.name}/></td>
-            <td className="Price"><input onChange={(e) => handleChange(index, 'price', e.target.value)} className="priceInput" name="price" type="number" step="0.01" min="0" defaultValue={`${item.price.toFixed(2)}`}/></td>
+            <td className="Quantity"><input onInput={(e) => handleChange(index, 'quantity', e.currentTarget.value)}  className="quantityInput" name="quantity" type="number" step="1" min="0" defaultValue={`${item.quantity}`}/></td>
+            <td className="Name"><input onInput={(e) => handleChange(index,'name', e.currentTarget.value)}  name="itemName" type="text" defaultValue={item.name}/></td>
+            <td className="Price"><input onInput={(e) => handleChange(index, 'price', e.currentTarget.value)} className="priceInput" name="price" type="number" step="0.01" min="0" defaultValue={`${item.price.toFixed(2)}`}/></td>
             <td className="Total">£{(item.price * item.quantity).toFixed(2)}</td>
             <td className="Delete" onClick={handleDelete}>X</td>
         </tr>
