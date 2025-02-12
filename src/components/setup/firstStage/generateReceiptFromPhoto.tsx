@@ -4,15 +4,14 @@ import { Receipt } from "../../../models/receipt";
 import { useDispatch } from "react-redux";
 import { setLeftOver } from "../../../models/session";
 
-export default function GetPhotoFromUser() {
-  const [image, setImage] : any = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [receiptData, setReceiptData] : any = useState(null);
+export default function GenerateReceiptFromPhoto() {
+  const [image, setImage] = useState<string|null>(null);
+  const [status , setStatus] = useState<'START'| 'LOADING' | 'SUCCESSFUL' | 'FAILED'>('START')
 
   const dispatch = useDispatch();
 
-  const handleFileChange = async (event : React.ChangeEvent<HTMLInputElement>) => {
-    if(event.target.files == undefined) return
+  const handleImageUpload = async (event : React.ChangeEvent<HTMLInputElement>) => {
+    if(!event.target.files) return;
     const file = event.target.files[0];
     if (!file) return;
 
@@ -20,7 +19,8 @@ export default function GetPhotoFromUser() {
     const imageUrl = URL.createObjectURL(file);
     setImage(imageUrl);
 
-    setLoading(true);
+    setStatus('LOADING');
+
     try {
       // Convert file to Blob URL or upload it
        // This is just a placeholder, Gemini API needs a proper path
@@ -39,29 +39,36 @@ export default function GetPhotoFromUser() {
         const recipe = JSON.parse(result);
         recipe.items = recipe.Items;
         recipe.chargeStrategy = 'serviceChargeSeperate'
-        setReceiptData(result); // Store AI response
         dispatch(setLeftOver(recipe as Receipt))
+        setStatus('SUCCESSFUL');
       }
     } catch (error) {
       console.error("Error processing receipt:", error);
+      setStatus('FAILED')
     }
-    setLoading(false);
   };
 
     
     
     return (
       <div id="photoCapture">
-      <input type="file" accept="image/*" onChange={handleFileChange} />
-      {image && <img src={image} alt="Preview" id="preview" />}
-      {loading && <p>Processing receipt...</p>}
-      {receiptData && (
-        <div className="mt-4 p-4 border rounded">
-          <h3>Extracted Receipt Data:</h3>
-          <pre className="text-sm">{JSON.stringify(receiptData, null, 2)}</pre>
+        <h2>Generate Receipt From Photo</h2>
+        <div id="photoHolder">
+          {image && <img src={image} alt="Preview" id="preview" />}
         </div>
-      )}
-    </div>
+        <div id="statusHolder">
+          {status === 'START' && 
+          <>
+            <label htmlFor="file-upload" className="custom-file-upload"> Upload Image </label>
+            <input id="file-upload" type="file" accept="image/*" aria-hidden="true" onChange={handleImageUpload}/>
+          </>}
+          {status === 'LOADING' &&
+            <h4>Loading...</h4>
+          }
+          {status === 'FAILED' && <h4>Failed to process receipt. Please try again.</h4>}
+          {status === 'SUCCESSFUL' && <h4>Receipt processed successfully!</h4>}
+        </div>
+      </div>
       
     ); 
 }

@@ -42,7 +42,7 @@ export default function EditChargesTable(){
                     {editChargesComp}
                 </tbody>
             </table>
-            <button onClick={handleButton}>Add New Item</button>
+            <button onClick={handleButton}>Add New Charge</button>
         </div>
     )
 }
