@@ -1,5 +1,5 @@
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import "./items.css";
 import { RootState } from "../../store/store";
 import ItemComp from "./item";

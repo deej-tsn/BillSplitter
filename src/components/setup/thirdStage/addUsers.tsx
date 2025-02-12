@@ -21,7 +21,7 @@ export default function addUsers(){
             <h1>Diners</h1>
             <hr/>
             <div id="users">
-                {users.map((user, index) => <div key={index} className="user">{user.name}</div>)}
+                {users.map((user) => <div key={user.name} className="user">{user.name}</div>)}
             </div>
             <hr/>
             <div id="addUser">

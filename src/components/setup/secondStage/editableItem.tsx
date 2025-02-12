@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Item } from "../../../models/item";
-import { updateItemInReceipt } from "../../../models/session";
+import { removeItemFromLeftOver, updateItemInLeftOver} from "../../../models/session";
 
 interface EditableItemProp {
     item : Item,
@@ -21,7 +21,13 @@ export default function EditableItem({item, index} : EditableItemProp) {
         }else{
             newItem["name"] = value;
         }
-        dispatch(updateItemInReceipt({item : newItem, index : index}))
+        dispatch(updateItemInLeftOver({item : newItem, index : index}))
+    }
+
+    function handleDelete(event : React.MouseEvent<HTMLTableCellElement>){
+        event.preventDefault()
+        dispatch(removeItemFromLeftOver(index))
+
     }
     return (
         <tr className="itemRow">
@@ -29,6 +35,7 @@ export default function EditableItem({item, index} : EditableItemProp) {
             <td className="Name"><input onChange={(e) => handleChange(index,'name', e.target.value)}  name="itemName" type="text" defaultValue={item.name}/></td>
             <td className="Price"><input onChange={(e) => handleChange(index, 'price', e.target.value)} className="priceInput" name="price" type="number" step="0.01" min="0" defaultValue={`${item.price.toFixed(2)}`}/></td>
             <td className="Total">£{(item.price * item.quantity).toFixed(2)}</td>
+            <td className="Delete" onClick={handleDelete}>X</td>
         </tr>
     )
 }

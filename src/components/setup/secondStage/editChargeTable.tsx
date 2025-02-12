@@ -9,7 +9,7 @@ import { addChargeToLeftOver } from "../../../models/session";
 export default function EditChargesTable(){
 
     const receipt = useSelector((state : RootState) => state.session.leftOver)
-    let editChargesComp = receipt.charges.map((charge, index) => <EditableCharge key={index} charge={charge} index={index}/>)
+    let editChargesComp = receipt.charges.map((charge, index) => <EditableCharge key={charge.name} charge={charge} index={index}/>)
     const dispatch = useDispatch()
 
     const [chargeCounter, incrementItemCounter] = useState(0);
@@ -19,7 +19,7 @@ export default function EditChargesTable(){
 
         let exampleCharge : Charge = {
             name: `Example Charge ${chargeCounter}`,
-            charge_value : 0.1
+            percentage : 10
         }
 
         dispatch(addChargeToLeftOver(exampleCharge))
@@ -36,6 +36,7 @@ export default function EditChargesTable(){
                         <th className="Name">Name</th>
                         <th className="Pecentage">Percentage</th>
                         <th className="Difference">Difference</th>
+                        <th className="Delete"></th>
                     </tr>
                 </thead>
                 <tbody>

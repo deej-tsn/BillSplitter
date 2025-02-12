@@ -10,7 +10,7 @@ export default function EditItemTable(){
 
     const receipt = useSelector((state : RootState) => state.session.leftOver)
     const dispatch = useDispatch()
-    let editItemsComp = receipt.items.map((item : Item, index : number) => <EditableItem key={index} item={item} index={index}/>);
+    let editItemsComp = receipt.items.map((item : Item, index : number) => <EditableItem key={item.name} item={item} index={index}/>);
     const [itemCounter, incrementItemCounter] = useState(0);
     
 
@@ -37,6 +37,7 @@ export default function EditItemTable(){
                         <th className="Name">Name</th>
                         <th className="Price">Price per Item</th>
                         <th className="Total">Total</th>
+                        <th className="Delete"></th>
                     </tr>
                 </thead>
                 <tbody>
