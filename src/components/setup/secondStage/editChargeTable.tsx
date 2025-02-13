@@ -4,12 +4,13 @@ import "../setup.css"
 import EditableCharge from "./editableCharge";
 import { Charge } from "../../../models/receipt";
 import { useState } from "react";
-import { addChargeToLeftOver } from "../../../models/session";
+import { addChargeToLeftOver } from "../../../store/session";
+import { nanoid } from "@reduxjs/toolkit";
 
 export default function EditChargesTable(){
 
     const receipt = useSelector((state : RootState) => state.session.leftOver)
-    let editChargesComp = receipt.charges.map((charge, index) => <EditableCharge key={charge.name} charge={charge} index={index}/>)
+    let editChargesComp = receipt.charges.map((charge, index) => <EditableCharge key={charge.uuid} charge={charge} index={index}/>)
     const dispatch = useDispatch()
 
     const [chargeCounter, incrementItemCounter] = useState(0);
@@ -18,6 +19,7 @@ export default function EditChargesTable(){
         event.preventDefault()
 
         let exampleCharge : Charge = {
+            uuid : nanoid(),
             name: `Example Charge ${chargeCounter}`,
             percentage : 10
         }

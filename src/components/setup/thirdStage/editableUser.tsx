@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
 import "../setup.css"
-import { removeUserFromSession } from "../../../models/session";
+import { removeUserFromSession } from "../../../store/session";
 
 
 interface EditableUserProp {

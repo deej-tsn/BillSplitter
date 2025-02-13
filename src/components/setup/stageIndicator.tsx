@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import "./setup.css"
-import { nextStage, prevStage } from "../../models/session";
+import { nextStage, prevStage } from "../../store/session";
 
 export default function StageIndicator({stageIndex}: {stageIndex:number}){
 

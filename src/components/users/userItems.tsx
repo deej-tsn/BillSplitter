@@ -1,3 +1,4 @@
+import { nanoid } from "@reduxjs/toolkit";
 import { User, Item } from "../../models/receipt";
 import { removeItemFromUser, setCurrentUser } from "../../store/session";
 import { useDispatch } from "react-redux";
@@ -18,6 +19,7 @@ export default function UserItems({user, item, userIndex} : UserItemsProp){
         let defaultQuantity = 1;
         if(defaultQuantity > item.quantity) defaultQuantity = item.quantity;
         let newItem : Item = {
+            uuid: nanoid(),
             name : item.name,
             quantity : defaultQuantity,
             price : item.price

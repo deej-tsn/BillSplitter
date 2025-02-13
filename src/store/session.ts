@@ -1,5 +1,5 @@
 
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
 import data from '../../data/test_data.json';
 import { addChargeToReceipt, addManyToReceipt, addToReceipt, adjustCost, Charge, deleteFromReceipt, deleteManyFromReceipt, Item, newUser, Receipt, sortItems, User } from '../models/receipt';
 
@@ -36,7 +36,7 @@ const sessionSlice = createSlice({
     createUser: (state : Session, action: PayloadAction<string>) => {
       const userName = action.payload;
       if (!state.users.find(user => user.name === userName)) {
-        const user = newUser(userName, state.leftOver.charges);
+        const user = newUser(nanoid(),userName, state.leftOver.charges);
         state.users.push(user);
         state.currentSelectedUsers.push(true);
       }
@@ -75,6 +75,7 @@ const sessionSlice = createSlice({
       state.users.forEach((user, index) => {
         if(state.currentSelectedUsers[index]){
           let item : Item = {
+            uuid: nanoid(),
             name : originalItem.name,
             price : originalItem.price,
             quantity : 1/numOfUsers

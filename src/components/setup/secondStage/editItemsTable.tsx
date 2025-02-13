@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Item } from "../../../models/item";
+import { Item } from "../../../models/receipt";
 import EditableItem from "./editableItem";
 import { RootState } from "../../../store/store";
 import "../setup.css"
-import { addItemToLeftOver } from "../../../models/session";
+import { addItemToLeftOver } from "../../../store/session";
 import { useState } from "react";
+import { nanoid } from "@reduxjs/toolkit";
 
 export default function EditItemTable(){
 
@@ -12,7 +13,7 @@ export default function EditItemTable(){
     const dispatch = useDispatch()
 
     // TODO add unique id to Items/Charges/Users when generated;
-    let editItemsComp = receipt.items.map((item : Item, index : number) => <EditableItem key={item.name} item={item} index={index}/>);
+    let editItemsComp = receipt.items.map((item : Item, index : number) => <EditableItem key={item.uuid} item={item} index={index}/>);
     const [itemCounter, incrementItemCounter] = useState(0);
     
 
@@ -20,6 +21,7 @@ export default function EditItemTable(){
         event.preventDefault()
 
         let exampleItem : Item = {
+            uuid: nanoid(),
             name: `Example Item ${itemCounter}`,
             price: 10,
             quantity: 1

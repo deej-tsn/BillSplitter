@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {setupPrompt, uploadToGemini, run} from "../../../ai/setup";
 import { Receipt } from "../../../models/receipt";
 import { useDispatch } from "react-redux";
-import { setLeftOver } from "../../../models/session";
+import { setLeftOver } from "../../../store/session";
 
 export default function GenerateReceiptFromPhoto() {
   const [image, setImage] = useState<string|null>(null);

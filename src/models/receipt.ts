@@ -1,4 +1,7 @@
+import {nanoid} from "@reduxjs/toolkit"
+
 export type Item = {
+    uuid : string;
     name: string;
     price: number;
     quantity: number;
@@ -6,12 +9,14 @@ export type Item = {
 
 
 export type User = {
+    uuid : string;
     name: string;
     receipt : Receipt
   };
 
 
 export type Charge = {
+    uuid : string,
     name : string,
     percentage : number // -100 < x < ∞ // Negative means discount, Positive means tax
 }
@@ -41,8 +46,9 @@ function newEmptyReceipt(charges : Charge[]) : Receipt{
     } 
 }
 
-export function newUser(name:string, charges : Charge[]) : User {
+export function newUser(id: string,name:string, charges : Charge[]) : User {
     return {
+        uuid : id,
         name : name,
         receipt : newEmptyReceipt(charges)
     }
@@ -99,6 +105,7 @@ export function addManyToReceipt(receiptTo : Receipt, receiptFrom : Receipt, sel
             let itemIn = receiptTo.items.find((toItem) => toItem.name == item.name)
             if(itemIn == undefined){
                 let newItem : Item = {
+                    uuid : nanoid(),
                     name : item.name,
                     price : item.price,
                     quantity : 1

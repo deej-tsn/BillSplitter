@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import "./items.css";
 import { RootState } from "../../store/store";
 import ItemComp from "./item";
-import { Item } from "../../models/item";
+import { Item } from "../../models/receipt";
 
 export default function ItemsTable() {
 
@@ -11,7 +11,7 @@ export default function ItemsTable() {
 
     const selectedItems = useSelector((state : RootState) => state.session.currentSelectedItems)
 
-    const listOfItems = items.map((item : Item, index:number) => (<ItemComp key={item.name} index={index} isSelected = {selectedItems[index]} item={item}/>))
+    const listOfItems = items.map((item : Item, index:number) => (<ItemComp key={item.uuid} index={index} isSelected = {selectedItems[index]} item={item}/>))
     
     return (
         <div id="itemTableHolder" className="tableHolder">

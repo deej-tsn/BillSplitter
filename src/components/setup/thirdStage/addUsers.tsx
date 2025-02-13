@@ -1,13 +1,13 @@
 import {  useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
-import { createUser } from "../../../models/session";
+import { createUser } from "../../../store/session";
 import "../setup.css";
 import EditableUser from "./editableUser";
 
 export default function addUsers(){
     const users = useSelector((state : RootState) => state.session.users)
 
-    const rows = users.map((user, index) => <EditableUser key={user.name} userName={user.name} index={index}/>)
+    const rows = users.map((user, index) => <EditableUser key={user.uuid} userName={user.name} index={index}/>)
     const dispatch = useDispatch()
     
     function SubmitForm(event:React.FormEvent<HTMLFormElement>) {
