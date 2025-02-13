@@ -12,15 +12,14 @@ export default function EditItemTable(){
     const receipt = useSelector((state : RootState) => state.session.leftOver)
     const dispatch = useDispatch()
 
-    // TODO add unique id to Items/Charges/Users when generated;
-    let editItemsComp = receipt.items.map((item : Item, index : number) => <EditableItem key={item.uuid} item={item} index={index}/>);
+    const editItemsComp = receipt.items.map((item : Item, index : number) => <EditableItem key={item.uuid} item={item} index={index}/>);
     const [itemCounter, incrementItemCounter] = useState(0);
     
 
     function handleButton(event : React.MouseEvent<HTMLButtonElement>){
         event.preventDefault()
 
-        let exampleItem : Item = {
+        const exampleItem : Item = {
             uuid: nanoid(),
             name: `Example Item ${itemCounter}`,
             price: 10,

@@ -13,7 +13,7 @@ export default function EditableCharge({charge, index} : EditableChargeProps){
 
     function handleChange(index : number, field:'percentage'|'name', value: string){
             
-        let newCharge = {
+        const newCharge = {
             ...charge
         }
         if(field === 'percentage'){

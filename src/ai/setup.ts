@@ -95,7 +95,7 @@ async function uploadToGemini(file: any) {
         const base64Data = (reader.result as string).split(",")[1]; // Extract Base64 content
         const mimeType = file.type;
 
-        let output = {
+        const output = {
           inlineData : {
             data: base64Data,
             mimeType, // e.g., image/jpeg or image/png

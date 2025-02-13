@@ -26,7 +26,7 @@ export default function UserComp({user, index,isCurrentUser} : UserCompProps) {
     }
 
 
-    function flipItemListState(event : any){
+    function flipItemListState(event : React.MouseEvent<HTMLImageElement>){
         event.preventDefault()
         event.stopPropagation()
         setExpanded(!expanded)

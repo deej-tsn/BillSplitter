@@ -18,7 +18,7 @@ export default function UserItems({user, item, userIndex} : UserItemsProp){
         console.log(event);
         let defaultQuantity = 1;
         if(defaultQuantity > item.quantity) defaultQuantity = item.quantity;
-        let newItem : Item = {
+        const newItem : Item = {
             uuid: nanoid(),
             name : item.name,
             quantity : defaultQuantity,

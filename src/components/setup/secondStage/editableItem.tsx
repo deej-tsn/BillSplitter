@@ -13,7 +13,7 @@ export default function EditableItem({item, index} : EditableItemProp) {
 
     function handleChange(index : number, field:'price'|'quantity'|'name', value: string){
         
-        let newItem : Item = {
+        const newItem : Item = {
             ...item
         }
         if(field === 'price' || field === 'quantity'){

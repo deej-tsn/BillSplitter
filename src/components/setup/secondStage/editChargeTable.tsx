@@ -10,7 +10,7 @@ import { nanoid } from "@reduxjs/toolkit";
 export default function EditChargesTable(){
 
     const receipt = useSelector((state : RootState) => state.session.leftOver)
-    let editChargesComp = receipt.charges.map((charge, index) => <EditableCharge key={charge.uuid} charge={charge} index={index}/>)
+    const editChargesComp = receipt.charges.map((charge, index) => <EditableCharge key={charge.uuid} charge={charge} index={index}/>)
     const dispatch = useDispatch()
 
     const [chargeCounter, incrementItemCounter] = useState(0);
@@ -18,7 +18,7 @@ export default function EditChargesTable(){
     function handleButton(event : React.MouseEvent<HTMLButtonElement>){
         event.preventDefault()
 
-        let exampleCharge : Charge = {
+        const exampleCharge : Charge = {
             uuid : nanoid(),
             name: `Example Charge ${chargeCounter}`,
             percentage : 10
