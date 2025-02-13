@@ -1,8 +1,7 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import data from '../../data/test_data.json';
-import { Item } from './item';
-import { addChargeToReceipt, addManyToReceipt, addToReceipt, adjustCost, Charge, deleteFromReceipt, deleteManyFromReceipt, newUser, Receipt, sortItems, User } from './receipt';
+import { addChargeToReceipt, addManyToReceipt, addToReceipt, adjustCost, Charge, deleteFromReceipt, deleteManyFromReceipt, Item, newUser, Receipt, sortItems, User } from '../models/receipt';
 
 export type Session = {
   users: User[];

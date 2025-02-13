@@ -1,4 +1,4 @@
-import { splitItem } from "../../models/session";
+import { splitItem } from "../../store/session";
 
 export default function SplitItem(dispatch : any){
 

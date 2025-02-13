@@ -1,18 +1,11 @@
 
 .action{
-    background-color: rgb(156, 156, 156);
+    background-color: var(--primary-color);
     padding: 1rem;
-    margin: 1rem;
+    width: 10rem;
+    text-align: center;
     font-weight: 600;
-    border-radius: 28px;
+    border: 1px solid black;
     filter: var(--drop_shadow);
     cursor: pointer;
-}
-
-#actionsHolder {
-    width: 50%;
-    height: 5rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
 }

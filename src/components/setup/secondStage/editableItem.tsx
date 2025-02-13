@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
-import { Item } from "../../../models/item";
-import { removeItemFromLeftOver, updateItemInLeftOver} from "../../../models/session";
+import { Item } from "../../../models/receipt";
+import { removeItemFromLeftOver, updateItemInLeftOver} from "../../../store/session";
 
 interface EditableItemProp {
     item : Item,

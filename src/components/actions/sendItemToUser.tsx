@@ -1,4 +1,4 @@
-import { addItemToOneUser } from "../../models/session";
+import { addItemToOneUser } from "../../store/session";
 import "./actions.css";
 
 export default function SendItem(dispatch : any) {

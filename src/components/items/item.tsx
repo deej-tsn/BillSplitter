@@ -1,7 +1,7 @@
 
 import "./items.css";
-import { Item } from "../../models/item";
-import { setCurrentItem } from "../../models/session";
+import { Item } from "../../models/receipt";
+import { setCurrentItem } from "../../store/session";
 import { useDispatch } from "react-redux";
 
 interface ItemCompProps {

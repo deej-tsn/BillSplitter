@@ -13,10 +13,9 @@ export default function ActionHolder(){
     state.currentSelectedUsers.forEach((isSelected) => {if(isSelected)numOfSelectedUsers++});
 
     return (
-        <div id="actionsHolder">
+        <>
             {numOfSelectedUsers == 1 && numOfItemsSelected > 0 && SendItem(dispatch)}
             {numOfItemsSelected == 1 && numOfSelectedUsers > 1 && SplitItem(dispatch)}
-
-        </div>
+        </>
     )
 }

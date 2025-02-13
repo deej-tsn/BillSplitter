@@ -1,6 +1,5 @@
-import { User } from "../../models/receipt";
-import { removeItemFromUser, setCurrentUser } from "../../models/session";
-import { Item } from "../../models/item";
+import { User, Item } from "../../models/receipt";
+import { removeItemFromUser, setCurrentUser } from "../../store/session";
 import { useDispatch } from "react-redux";
 
 interface UserItemsProp {

@@ -1,4 +1,9 @@
-import { Item } from "./item";
+export type Item = {
+    name: string;
+    price: number;
+    quantity: number;
+};
+
 
 export type User = {
     name: string;

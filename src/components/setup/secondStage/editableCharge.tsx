@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Charge,} from "../../../models/receipt";
-import { removeChargeFromLeftOver, updateChargeInLeftOver } from "../../../models/session";
+import { removeChargeFromLeftOver, updateChargeInLeftOver } from "../../../store/session";
 
 interface EditableChargeProps {
     charge : Charge,

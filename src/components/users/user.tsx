@@ -1,5 +1,5 @@
 
-import { setCurrentUser} from "../../models/session"
+import { setCurrentUser} from "../../store/session";
 import "./users.css"
 import { User } from "../../models/receipt"
 import downArrow from "../../assets/downArrow.svg";
