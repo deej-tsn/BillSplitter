@@ -20,14 +20,11 @@ export default function ItemComp({isSelected,  item, index} : ItemCompProps) {
     }
 
     return (
-        <div onClick={handleClick} className={`item ${isSelected && 'selected'} `}>
-            <div>
-                <h2 className="itemName">{item.name}</h2>
-                <h4 className="itemPrice"><span style={{fontWeight : 400}}>Price : </span> £{item.price.toFixed(2)}</h4>
-            </div>
-            
-            <h4 className="itemQuantity">{item.quantity}</h4>
-            
-        </div>
+        <tr onClick={handleClick} className={`item ${isSelected && 'selected'} `}>
+                <td className="Quantity">{item.quantity}</td>
+                <td className="Name">{item.name}</td>
+                <td className="Price">{item.price.toFixed(2)}</td>
+                <td className="Total">£{(item.price * item.quantity).toFixed(2)}</td>
+        </tr>
     )
 }

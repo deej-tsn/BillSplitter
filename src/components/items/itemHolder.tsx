@@ -1,6 +1,6 @@
 
 import { useSelector } from "react-redux";
-import ItemList from "./itemList";
+import ItemTable from "./itemTable";
 import { RootState } from "../../store/store";
 
 export default function ItemHolder() {
@@ -8,10 +8,10 @@ export default function ItemHolder() {
     const cost = useSelector((state : RootState) => state.session.leftOver.cost)
 
     return (
-        <div id="itemHolder">
-            <h1>Items Left:</h1>
-                {<ItemList/>}
+        <>
+            <ItemTable/>
             <h4><span style={{fontWeight : 400}}> Cost Left To Allocate :</span> £{cost}</h4>
-        </div>
+        </>
+        
     )
 }

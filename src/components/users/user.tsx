@@ -5,6 +5,7 @@ import { User } from "../../models/receipt"
 import downArrow from "../../assets/downArrow.svg";
 import { useDispatch } from "react-redux";
 import UserItems from "./userItems";
+import { useState } from "react";
 
 interface UserCompProps {
     user : User,
@@ -13,8 +14,11 @@ interface UserCompProps {
 }
 
 export default function UserComp({user, index,isCurrentUser} : UserCompProps) {
+
+    const userItems = user.receipt.items.map((item, userIndex) => <UserItems key={index} user={user} item={item} userIndex={userIndex}/>)
     
     const dispatch = useDispatch();
+    const [expanded, setExpanded] = useState(false)
 
     function handleClick(event : React.MouseEvent<HTMLDivElement>){
         event.preventDefault()
@@ -25,26 +29,22 @@ export default function UserComp({user, index,isCurrentUser} : UserCompProps) {
     function flipItemListState(event : any){
         event.preventDefault()
         event.stopPropagation()
-        if(event.target.parentElement.parentElement){
-            let div : HTMLDivElement = event.target.parentElement.parentElement
-            div.classList.toggle('closed')
-            div.classList.toggle('open')
-        }
+        setExpanded(!expanded)
     }
     return (
-        <div onClick={handleClick} className={`user  closed`}>
-            <div className={`userHero ${isCurrentUser && 'selected'}`}>
-                <div>
-                    <h1 className="userName">{user.name}</h1>
-                    <h4 className="userQuantity">has {user.receipt.items.length} items</h4>
-                </div>
-                    <h4 className="userCost">£{user.receipt.cost}</h4>
-                <img className='userArrow'src={downArrow} onClick={flipItemListState}/>
-            </div>
-            <ul className="userItemList">
-                {user.receipt.items.map((item, userIndex) => <UserItems key={index} user={user} item={item} userIndex={userIndex}/>)}
-            </ul>
-        </div>
+        <>
+            <tr onClick={handleClick} className={`user ${(expanded) ? 'open' : 'closed'} ${isCurrentUser && 'selected'}`}>
+                <td className="Name">{user.name}</td>
+                <td className="NumOfItems">{user.receipt.items.length}</td>
+                <td className="Total">£{user.receipt.cost}</td>
+                <td className="Expand"><img className='userArrow'src={downArrow} onClick={flipItemListState}/></td>
+            </tr>
+
+            {expanded && userItems}
+
+        </>
+       
+    
 
     )
 }

@@ -1,38 +1,49 @@
-.user{
-    width: fit-content;
-    
-    flex-direction: column;
-    align-items: center;
-    
-    display: flex;
-    cursor: pointer;
-    filter: var(--drop_shadow);
 
+
+#userTable {
+    max-height: 40%;
+    
+    th.Name {
+        width: 50%;
+        text-align: left;
+    }
+
+    th.NumOfItems, th.Total {
+        width: 20%;
+    }
+
+    td:not(.Name){
+        text-align: center;
+    }
+}
+.userItem{
+    background-color: var(--primary-color);
+    transition: opacity 0.1s ease-in-out;
+
+    td {
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
+
+    td.Delete {
+        cursor: pointer;
+        font-size: small;
+    }
+}
+
+.user{
     img {
+        width: 1rem;
         transition: transform 0.3s ease-in-out;
     }
 }
 .user.open{
-    .userItemList{
-        max-height: 10rem;
-        overflow-y: auto;
-        li {
-            opacity:  100%;
-        }
-    }
     img {
         transform: rotate(180deg);
     }
 }
 
 .user.closed{
-    .userItemList{
-        max-height: 0;
-        overflow-y: hidden;
-        li {
-            opacity:  0;
-        }
-    }
     img {
         transform: rotate(0deg);
     }

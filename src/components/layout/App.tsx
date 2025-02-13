@@ -1,7 +1,7 @@
 import {useSelector } from 'react-redux'
 import './App.css'
 import ItemHolder from '../items/itemHolder'
-import UserContainer from '../users/userContainer'
+import UserContainer from '../users/userTable'
 import { RootState } from '../../store/store'
 import ActionHolder from '../actions/actionsHolder'
 import ManageReceipt from '../setup/secondStage/manageReceipt'

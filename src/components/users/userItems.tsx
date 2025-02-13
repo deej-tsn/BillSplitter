@@ -13,7 +13,7 @@ export default function UserItems({user, item, userIndex} : UserItemsProp){
 
     const dispatch = useDispatch()
 
-    function buttonHandler(event : React.MouseEvent<HTMLButtonElement>){
+    function buttonHandler(event : React.MouseEvent<HTMLTableCellElement>){
         event.preventDefault()
         console.log(event);
         let defaultQuantity = 1;
@@ -32,10 +32,11 @@ export default function UserItems({user, item, userIndex} : UserItemsProp){
     }
 
     return(
-        <li className="userItem">
-            <h4>{item.name}</h4>
-            <h4 className="userItemRight">{item.quantity}</h4>
-            <button onClick={buttonHandler}>&#x1F5D9;</button>
-        </li>
+        <tr className="userItem">
+            <td className="Name">{item.name}</td>
+            <td className="NumOfItems">{item.quantity}</td>
+            <td></td>
+            <td className="Delete" onClick={buttonHandler}>X</td>
+        </tr>
     )
 }
