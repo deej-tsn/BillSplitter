@@ -25,7 +25,7 @@ BillSplitter is a web application designed to simplify the process of dividing b
 - **Redux Toolkit**: State management for efficient data flow.
 - **TypeScript**: Static typing to ensure type safety and enhanced code quality.
 - **Google Generative AI**: Integrates Google’s AI model for receipt scanning.
-- **Vite**: Fast and modern frontend tooling for development and bundling.
+- **Vite**: Fast and modern frontend tooling for development and bundling.git 
 - **ESLint & Prettier**: Linting and formatting for maintaining clean code.
 
 ---
@@ -155,7 +155,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 If you encounter any issues or have suggestions, feel free to open an issue or submit a pull request.
 
 Happy Coding! 🚀
-
----
-
-Let me know if you need any modifications or additional sections!
