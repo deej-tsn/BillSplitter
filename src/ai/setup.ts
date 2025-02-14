@@ -115,7 +115,7 @@ async function uploadToGemini(file: any) {
 
 async function run(imagePart : any) {
     const result = await model.generateContent(["", imagePart]);
-    console.log(result.response.text());
+    //console.log(result.response.text());
     return result.response.text();
 }
 

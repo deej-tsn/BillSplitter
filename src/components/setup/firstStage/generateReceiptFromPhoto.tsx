@@ -32,7 +32,7 @@ export default function GenerateReceiptFromPhoto() {
       const uploadedFile = await uploadToGemini(file);
 
       if (uploadedFile) {
-        console.log("File uploaded:", uploadedFile);
+        //console.log("File uploaded:", uploadedFile);
 
         // Run AI processing on the uploaded file
         const result = await run(uploadedFile);
