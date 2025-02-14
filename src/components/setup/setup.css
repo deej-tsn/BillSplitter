@@ -1,3 +1,22 @@
+:root{
+    --drop_shadow: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  }
+  
+  #root{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  hr {
+    height: 1px;
+    width: 100%;
+    background-color: black;
+    border: black;
+  }
+
 #blur {
     position: absolute;
     width: 100%;
@@ -8,8 +27,9 @@
 }
 
 #stageController{
-    width: 30rem;
-    height:40rem;
+    box-sizing: border-box;
+    width: 100%;
+    height:100%;
     padding: 1rem;
     padding-bottom: 5rem;
     display: flex;
@@ -226,20 +246,7 @@
 
 
 
-    #photoHolder {
-        width: 24rem;
-        height: 32rem;
-        border: 1px solid black;
-        background-color: white;
-        margin-bottom: 2rem;
 
-        #preview{
-            width: 24rem;
-            height: 32rem;
-            object-fit: cover;
-        }
-        
-    }
 
     input[type="file"] {
         display: none;
@@ -262,6 +269,21 @@
     }
 }
 
+#photoHolder {
+    width: 20rem;
+    height: 32rem;
+    border: 1px solid black;
+    background-color: white;
+    margin-bottom: 2rem;
+
+    #preview{
+        width: 24rem;
+        height: 32rem;
+        object-fit: cover;
+    }
+    
+}
+
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
@@ -270,3 +292,19 @@ input[type=number]::-webkit-outer-spin-button {
 input[type="number"] {
     -moz-appearance: textfield;
 }
+@media only screen and (width >= 600px) {
+
+    #root {
+        height: fit-content;
+        min-height: 100vh;
+    }
+
+    #stageController{
+        height: 40rem;
+        width: 30rem;
+    }
+
+    #photoHolder {
+        width: 24rem;
+    }
+  }

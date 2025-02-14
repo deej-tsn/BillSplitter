@@ -3,7 +3,7 @@ import "./users.css"
 import { RootState } from "../../store/store";
 import UserComp from "./user";
 
-export default function UserContainer() {
+export default function usersTable() {
     const users = useSelector((state : RootState) => state.session.users)
     const currentSelectedUsers = useSelector((state: RootState) => state.session.currentSelectedUsers)
     const rows = users.map((user,index) => <UserComp key={user.uuid} user={user}  index={index} isCurrentUser={currentSelectedUsers[index]}/>)
