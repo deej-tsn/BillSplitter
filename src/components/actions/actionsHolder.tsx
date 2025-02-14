@@ -7,14 +7,16 @@ export default function ActionHolder() {
     const dispatch = useDispatch();
     const state = useSelector((state: RootState) => state.session);
 
+    const numUsersSelected = state.currentSelectedUsers.reduce((total , isSelected)=> total += (isSelected)? 1 : 0, 0 );
+    const numItemsSelected = state.currentSelectedItems.reduce((total , isSelected)=> total += (isSelected)? 1 : 0, 0 );
     const sendItem = () => dispatch(addItemToOneUser());
     const splitItemFunc = () => dispatch(splitItem());
 
     return (
         <>
-            {state.currentSelectedUsers.length === 1 && state.currentSelectedItems.length > 0 && 
+            {numUsersSelected === 1 && numItemsSelected > 0 && 
                 <ActionButton label="Send Item" onClick={sendItem} />}
-            {state.currentSelectedItems.length === 1 && state.currentSelectedUsers.length > 1 && 
+            {numItemsSelected === 1 && numUsersSelected > 1 && 
                 <ActionButton label="Split" onClick={splitItemFunc} />}
         </>
     );
