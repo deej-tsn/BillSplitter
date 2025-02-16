@@ -17,7 +17,7 @@ export default function ItemsTable() {
         <>
             <div id="itemTableHolder" className="tableHolder">
                 <table id="itemsTable">
-                    <caption>Items Left:</caption>
+                    <caption>Items Left</caption>
                     <thead>
                         <tr>
                             <th className="Quantity">Quantity</th>
